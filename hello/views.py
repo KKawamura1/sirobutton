@@ -1,20 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
+from django.views import generic
+from typing import List
 
-from .models import Greeting
+from .models import Video, CaptionTrack, Subtitle
 
 # Create your views here.
-def index(request):
+
+
+def index(request: HttpRequest) -> HttpResponse:
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
 
-def db(request):
+class IndexView(generic.ListView):
+    template_name = 'index.html'
+    context_object_name = 'subtitle_list'
 
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
-
+    def get_queryset(self):
+        """Return subtitles."""
+        return Subtitle.objects.all()
