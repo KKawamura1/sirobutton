@@ -7,8 +7,8 @@ django = "*"
 gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
-"psycopg2-binary" = "*"
 django-hitcount = "*"
+"psycopg2-binary" = "*"
 
 [requires]
 python_version = "3.6"
