@@ -1,4 +1,4 @@
-from logging import getLogger, Logger
+from logging import getLogger, Logger, basicConfig, DEBUG, WARNING
 from typing import Sequence
 import argparse
 

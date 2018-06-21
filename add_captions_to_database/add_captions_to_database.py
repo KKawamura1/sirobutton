@@ -74,4 +74,9 @@ class AddCaptionsToDatabase:
             if updated:
                 # do update
                 item.save()
+                self._logger.debug('item {} updated'.format(item))
+            else:
+                self._logger.debug('item {} is not updated since not required'.format(item))
+        else:
+            self._logger.debug('item {} is not created since it exists'.format(item))
         return item
