@@ -127,4 +127,5 @@ STATIC_URL = '/static/'
 django_heroku.settings(locals())
 
 db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env['OPTIONS'] = {'sslmode': 'allow'}
 DATABASES['default'].update(db_from_env)
