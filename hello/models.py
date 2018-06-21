@@ -1,9 +1,11 @@
+from typing import Any
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCount, HitCountMixin
 
 
 class Video(models.Model):
+    id = models.AutoField(primary_key=True)
     video_id = models.CharField('youtube video id', max_length=20)
     title = models.CharField('video title', max_length=200)
     last_updated = models.DateTimeField('last modified time', auto_now=True)
@@ -13,6 +15,7 @@ class Video(models.Model):
 
 
 class CaptionTrack(models.Model):
+    id = models.AutoField(primary_key=True)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     caption_id = models.CharField('youtube caption track id', max_length=20)
     language = models.CharField('caption language', max_length=20)
@@ -23,6 +26,7 @@ class CaptionTrack(models.Model):
 
 
 class Subtitle(models.Model, HitCountMixin):
+    id = models.AutoField(primary_key=True)
     captiontrack = models.ForeignKey(CaptionTrack, on_delete=models.CASCADE)
     begin = models.TimeField('captions begin')
     end = models.TimeField('captions end')
