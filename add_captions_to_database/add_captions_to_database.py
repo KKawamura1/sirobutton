@@ -3,6 +3,8 @@ from logging import Logger, getLogger
 from typing import Union, Mapping, Any, Callable, Tuple, AbstractSet
 from pathlib import Path
 import pickle
+from tqdm import tqdm
+
 from hello.models import Video, CaptionTrack, Subtitle
 
 
@@ -26,7 +28,7 @@ class AddCaptionsToDatabase:
 
         input_dir = Path(input_dir).resolve()
         assert input_dir.is_dir()
-        for caption_path in input_dir.glob('**/augmented_captions.pkl'):
+        for caption_path in tqdm(input_dir.glob('**/augmented_captions.pkl')):
             caption_info_path = caption_path.parent / 'caption_info.pkl'
             video_info_path = caption_path.parent / 'video_info.pkl'
             assert all([path.is_file()
