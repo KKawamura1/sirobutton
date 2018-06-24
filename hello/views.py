@@ -89,6 +89,7 @@ class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
     paginate_by = 50
+    ordering = ['hit_count_generic__hits', 'captiontrack', 'begin']
     pages_around = 1
     pages_edge = 2
 
