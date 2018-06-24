@@ -1,3 +1,4 @@
-p.pagination a {
-    margin: 0.0px 1.5px
+ul.buttons li {
+    display: inline-block;
+    margin: 3px;
 }

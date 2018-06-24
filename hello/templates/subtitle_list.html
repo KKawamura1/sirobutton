@@ -4,12 +4,13 @@
 {% block content %}
 
 {% if subtitles %}
-<ul>
+<ul class="buttons">
   {% for subtitle in subtitles %}
   <li>
-    <a href="jump-to-youtube/{{ subtitle.id }}">
+    <a class="btn btn-secondary btn-sm" role="button" href="jump-to-youtube/{{ subtitle.id }}">
       {{ subtitle.content }}
     </a>
+    <a href="subtitle/{{ subtitle.id }}">?</a>
   </li>
   {% endfor %}
 </ul>
