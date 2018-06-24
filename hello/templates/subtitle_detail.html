@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if subtitle %}
+<h1>
+  {{ subtitle.content }}
+</h1>
+<dl>
+  <dt>アクセス数</dt>
+  <dd>{{ hitcount.total_hits }}</dd>
+  <dt>内容</dt>
+  <dd>{{ subtitle.content }}</dd>
+  <dt>読み</dt>
+  <dd>{{ subtitle.yomi }}</dd>
+  <dt>短縮タイトル</dt>
+  <dd>{{ subtitle.short_title }}</dd>
+  <dt>更新日</dt>
+  <dd>{{ subtitle.last_updated|date }}</dd>
+</dl>
+
+{% else %}
+<p>No subtitle specified.</p>
+{% endif %}
+
+{% endblock %}

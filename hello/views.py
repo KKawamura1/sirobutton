@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseGone
 from django.views import generic
-from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
-from pure_pagination.mixins import PaginationMixin
+from hitcount.views import HitCountDetailView, HitCountMixin
+from hitcount.models import HitCount
+import urllib.parse
 from typing import List, Any, Dict
 
 from .models import Video, CaptionTrack, Subtitle
@@ -17,9 +18,65 @@ class IndexView(generic.ListView):
     template_name = 'index.html'
     context_object_name = 'subtitle_list'
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
         """Return subtitles."""
         return Subtitle.objects.all()
+
+
+class SubtitleDetailView(HitCountDetailView):
+    model = Subtitle
+    context_object_name = 'subtitle'
+    template_name = 'subtitle_detail.html'
+    count_hit = True
+
+
+class RedirectToYoutubeView(generic.View):
+    url_base = 'https://www.youtube.com/watch'
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        url = self.get_redirect_url_with_request(request, *args, **kwargs)
+        if url:
+            return HttpResponseRedirect(url)
+        else:
+            return HttpResponseGone()
+
+    def head(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def options(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def delete(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def put(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def patch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return self.get(request, *args, **kwargs)
+
+    def get_redirect_url_with_request(
+            self,
+            request: HttpRequest,
+            *args: Any,
+            **kwargs: Any
+    ) -> str:
+        subtitle = get_object_or_404(Subtitle, pk=kwargs['pk'])
+        self._countup_subtitle(request, subtitle)
+        video_id = subtitle.captiontrack.video.video_id
+        begin = subtitle.begin
+        begin_as_str = '{}h{}m{}s'.format(begin.hour, begin.minute, begin.second)
+        queries = dict(v=video_id, t=begin_as_str)
+        url = type(self).url_base + '?' + urllib.parse.urlencode(queries)
+        return url
+
+    def _countup_subtitle(self, request: HttpRequest, subtitle: Subtitle) -> None:
+        hit_count = HitCount.objects.get_for_object(subtitle)
+        hit_count_response = HitCountMixin.hit_count(request, hit_count)
+        assert hit_count_response.hit_counted
 
 
 class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
