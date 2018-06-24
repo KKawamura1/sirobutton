@@ -17,27 +17,25 @@
 {% endif %}
 
 {% if is_paginated %}
-<div class="pagination">
-  <span class="step-links">
-    {% if page_obj.has_previous %}
-    <a href="{% url 'lists' %}?page={{ page_obj.previous_page_number }}">前へ</a>
-    {% endif %}
+<p class="pagination">
+  {% if page_obj.has_previous %}
+  <a class="btn btn-info btn-sm" role="button" href="{% url 'lists' %}?page={{ page_obj.previous_page_number }}">前へ</a>
+  {% endif %}
 
-    {% for page in pages %}
-    {% if page.link %}
-    <a href="{% url 'lists' %}?page={{ page.number }}">{{ page.number }}</a>
-    {% elif page.type == 'you_are_here' %}
-    {{ page.number }}
-    {% else %}
-    ...
-    {% endif %}
-    {% endfor %}
+  {% for page in pages %}
+  {% if page.link %}
+  <a class="btn btn-info btn-sm" role="button" href="{% url 'lists' %}?page={{ page.number }}">{{ page.number }}</a>
+  {% elif page.type == 'you_are_here' %}
+  <a class="btn btn-primary btn-sm disabled" tabindex="-1"role="button" area-disabled="true" href="#">{{ page.number }}</a>
+  {% else %}
+  <a class="btn btn-outline-info btn-sm disabled" tabindex="-1"role="button" area-disabled="true" href="#">...</a>
+  {% endif %}
+  {% endfor %}
 
-    {% if page_obj.has_next %}
-    <a href="{% url 'lists' %}?page={{ page_obj.next_page_number }}">次へ</a>
-    {% endif %}
-  </span>
-</div>
+  {% if page_obj.has_next %}
+  <a class="btn btn-info btn-sm" role="button" href="{% url 'lists' %}?page={{ page_obj.next_page_number }}">次へ</a>
+  {% endif %}
+</p>
 {% endif %}
 
 {% endblock %}
