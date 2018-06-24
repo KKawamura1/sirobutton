@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hitcount',
+    'pure_pagination',
     'hello',
 ]
 
@@ -129,3 +130,10 @@ django_heroku.settings(locals())
 db_from_env = dj_database_url.config(conn_max_age=500)
 db_from_env['OPTIONS'] = {'sslmode': 'allow'}
 DATABASES['default'].update(db_from_env)
+
+# see: https://ganbaruyo.net/details/add-pagination-to-django-class-base-view/
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 2,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
