@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if subtitles %}
+<ul>
+  {% for subtitle in subtitles %}
+  <li>
+    <a href="https://www.youtube.com/watch?v={{ subtitle.captiontrack.video.video_id }}">{{ subtitle.content }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% else %}
+<p>No subtitles are available.</p>
+{% endif %}
+
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="{% url 'lists' %}?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    {% for page in pages %}
+    {% if page.link %}
+    <a href="{% url 'lists' %}?page={{ page.number }}">{{ page.number }}</a>
+    {% elif page.type == 'you_are_here' %}
+    {{ page.number }}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="{% url 'lists' %}?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+
+{% endblock %}
