@@ -40,7 +40,7 @@ class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
         page_number = page_obj.number
         page_max = page_obj.paginator.num_pages
 
-        # [1, 2], [...], [7], [8], [9], [...] [14, 15]
+        # [1, 2], [...], [5, 6, 7], [8], [9, 10, 11], [...] [14, 15]
         # [edge] [elip] [around] [you_are_here] [around] [elip] [edge]
 
         # left
