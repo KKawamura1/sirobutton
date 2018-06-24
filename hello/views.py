@@ -27,7 +27,7 @@ class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
     paginate_by = 50
-    pages_around = 3
+    pages_around = 1
     pages_edge = 2
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
