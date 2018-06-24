@@ -8,6 +8,7 @@ class Video(models.Model):
     id = models.AutoField(primary_key=True)
     video_id = models.CharField('youtube video id', max_length=50)
     title = models.CharField('video title', max_length=500)
+    published = models.DateTimeField('video published')
     last_updated = models.DateTimeField('last modified time', auto_now=True)
 
     def __str__(self) -> str:
