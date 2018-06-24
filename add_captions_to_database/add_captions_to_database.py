@@ -6,6 +6,7 @@ import pickle
 from tqdm import tqdm
 
 from hello.models import Video, CaptionTrack, Subtitle
+from add_captions_to_database.data import Data
 
 
 class AddCaptionsToDatabase:
@@ -14,7 +15,7 @@ class AddCaptionsToDatabase:
 
     def do(
             self,
-            input_dir: Union[Path, str]
+            input_data: Data
     ) -> None:
         video_assigns = dict(video_id='video_id', title='title')
         caption_track_assigns = dict(caption_id='caption_id', language='language',
@@ -26,28 +27,19 @@ class AddCaptionsToDatabase:
         caption_track_identities = set(['caption_id'])
         subtitle_identities = set(['content'])
 
-        input_dir = Path(input_dir).resolve()
-        assert input_dir.is_dir()
-        for caption_path in tqdm(input_dir.glob('**/augmented_captions.pkl')):
-            caption_info_path = caption_path.parent / 'caption_info.pkl'
-            video_info_path = caption_path.parent / 'video_info.pkl'
-            assert all([path.is_file()
-                        for path in [caption_path, caption_info_path, video_info_path]])
+        for video_datum in tqdm(input_data):
             # video
-            with video_info_path.open('rb') as f:
-                video_info = pickle.load(f)
+            video_info = video_datum['video_info']
             video_item = self._create_or_update_if_necessary(Video, video_info,
                                                              video_identities, video_assigns)
             # caption track
-            with caption_info_path.open('rb') as f:
-                caption_info = pickle.load(f)
+            caption_info = video_datum['caption_info']
             caption_info['parent_video'] = video_item
             caption_track_item = self._create_or_update_if_necessary(CaptionTrack, caption_info,
                                                                      caption_track_identities,
                                                                      caption_track_assigns)
             # subtitle (a.k.a. caption)
-            with caption_path.open('rb') as f:
-                captions = pickle.load(f)
+            captions = video_datum['augmented_captions']
             for caption in captions:
                 caption['parent_caption_track'] = caption_track_item
                 self._create_or_update_if_necessary(Subtitle, caption,
