@@ -16,6 +16,8 @@
 <p>No subtitles are available.</p>
 {% endif %}
 
-{% include "share_pagination.html" with url_param="lists" %}
+<nav aria-label="Buttons list pages">
+  {% include "share_pagination.html" with url_param="lists" %}
+</nav>
 
 {% endblock %}
