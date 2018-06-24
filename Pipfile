@@ -10,6 +10,7 @@ dj-database-url = "*"
 django-hitcount = "*"
 "psycopg2-binary" = "*"
 django-pure-pagination = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.6"
