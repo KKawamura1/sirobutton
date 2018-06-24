@@ -7,7 +7,9 @@ django = "*"
 gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
+django-hitcount = "*"
 "psycopg2-binary" = "*"
+django-pure-pagination = "*"
 
 [requires]
 python_version = "3.6"

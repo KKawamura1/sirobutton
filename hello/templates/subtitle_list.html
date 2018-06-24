@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if subtitles %}
+<ul>
+  {% for subtitle in subtitles %}
+  <li>
+    <a href="https://www.youtube.com/watch?v={{ subtitle.captiontrack.video.video_id }}&t={{ subtitle.begin|time:'H' }}h{{ subtitle.begin|time:'i' }}m{{ subtitle.begin|time:'s' }}s">{{ subtitle.content }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% else %}
+<p>No subtitles are available.</p>
+{% endif %}
+
+<nav aria-label="Buttons list pages">
+  {% include "share_pagination.html" with url_param="lists" %}
+</nav>
+
+{% endblock %}
