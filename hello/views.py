@@ -5,8 +5,12 @@ from hitcount.views import HitCountDetailView, HitCountMixin
 from hitcount.models import HitCount
 import urllib.parse
 from typing import List, Any, Dict
+from logging import getLogger
 
 from .models import Video, CaptionTrack, Subtitle
+
+
+logger = getLogger('__name__')
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -76,7 +80,8 @@ class RedirectToYoutubeView(generic.View):
     def _countup_subtitle(self, request: HttpRequest, subtitle: Subtitle) -> None:
         hit_count = HitCount.objects.get_for_object(subtitle)
         hit_count_response = HitCountMixin.hit_count(request, hit_count)
-        assert hit_count_response.hit_counted
+        if not hit_count_response.hit_counted:
+            logger.error('hit count failed! {}'.format(hit_count_response))
 
 
 class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):

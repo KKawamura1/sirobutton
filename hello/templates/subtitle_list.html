@@ -7,7 +7,9 @@
 <ul>
   {% for subtitle in subtitles %}
   <li>
-    <a href="https://www.youtube.com/watch?v={{ subtitle.captiontrack.video.video_id }}&t={{ subtitle.begin|time:'H' }}h{{ subtitle.begin|time:'i' }}m{{ subtitle.begin|time:'s' }}s">{{ subtitle.content }}</a>
+    <a href="jump-to-youtube/{{ subtitle.id }}">
+      {{ subtitle.content }}
+    </a>
   </li>
   {% endfor %}
 </ul>
