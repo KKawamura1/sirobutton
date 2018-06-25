@@ -93,6 +93,15 @@ class SubtitleListView(generic.ListView):
     pages_around = 1
     pages_edge = 2
 
+    def get_queryset(self) -> Any:
+        queryset = super().get_queryset()
+        search_target = self.request.GET.get('search', '')
+        if queryset.filter(yomi__contains=search_target).exists():
+            result_qs = queryset.filter(yomi__contains=search_target)
+        else:
+            result_qs = queryset.filter(content__contains=search_target)
+        return result_qs
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['pages'] = self._get_pages(context)
