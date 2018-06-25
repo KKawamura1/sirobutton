@@ -84,7 +84,7 @@ class RedirectToYoutubeView(generic.View):
             logger.info('hit count failed: {}'.format(hit_count_response))
 
 
-class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
+class SubtitleListView(generic.ListView):
     model = Subtitle
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
