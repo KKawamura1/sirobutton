@@ -95,11 +95,15 @@ class SubtitleListView(generic.ListView):
 
     def get_queryset(self) -> Any:
         queryset = super().get_queryset()
-        search_target = self.request.GET.get('search', '')
-        if queryset.filter(yomi__contains=search_target).exists():
-            result_qs = queryset.filter(yomi__contains=search_target)
+        search_query = self.request.GET.get('search', '')
+        search_targets = search_query.split(' ')
+        regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
+        yomi_search = queryset.filter(yomi__regex=regex_query)
+        if yomi_search.exists():
+            result_qs = yomi_search
         else:
-            result_qs = queryset.filter(content__contains=search_target)
+            content_search = queryset.filter(content__regex=regex_query)
+            result_qs = content_search
         return result_qs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
