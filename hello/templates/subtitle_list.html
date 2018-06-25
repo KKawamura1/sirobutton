@@ -7,10 +7,10 @@
 <ul class="buttons">
   {% for subtitle in subtitles %}
   <li>
-    <a class="btn btn-secondary btn-sm" role="button" href="jump-to-youtube/{{ subtitle.id }}">
+    <a class="btn btn-secondary btn-mine btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}">
       {{ subtitle.content }}
     </a>
-    <a href="subtitle/{{ subtitle.id }}">?</a>
+    <a class="show-detail" href="{% url 'sirobutton:subtitle-detail' subtitle.id %}">?</a>
   </li>
   {% endfor %}
 </ul>
@@ -20,7 +20,7 @@
 {% endif %}
 
 <nav aria-label="Buttons list pages">
-  {% include "share_pagination.html" with url_param="lists" %}
+  {% include "share_pagination.html" with url_param="sirobutton:lists" %}
 </nav>
 
 {% endblock %}
