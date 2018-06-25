@@ -3,6 +3,17 @@ ul.buttons li {
     margin: 3px;
 }
 
+a.show-detail {
+    color: #ccf;
+    text-shadow: 0 1px 0 #333;
+    font-size: small;
+}
+a.show-detail:hover {
+    color: #99d;
+    text-shadow: 0 1px 0 #222;
+}
+
+/* responsive width embeddings */
 /* see: http://www.aiship.jp/knowhow/archives/29116 */
 div.video {
     position: relative;
@@ -15,4 +26,37 @@ div.video iframe{
     right: 0;
     width: 100%;
     height: 100%;
+}
+
+/* custom bootstrap button */
+/* see: https://qiita.com/Cheekyfunkymonkey/items/09a28c947a59bb9a9026 */
+.btn-mine {
+    background: #eee;
+    color: #333;
+    background-image: linear-gradient(to bottom, #fff 0%, #ddd 100%);
+    text-shadow: 0 1px 0 #fff;
+    border-color: #ccc;
+    border-radius: .3rem;
+}
+
+.btn-mine:hover, .btn-mine:focus,
+.btn-mine:active, .btn-mine:active:focus, .btn-mine:active:hover, .btn-mine:active.focus,
+.btn-mine.active, .btn-mine.active:focus, .btn-mine.active:hover, .btn-mine.active.focus,
+.open > .dropdown-toggle.btn-mine,
+.open > .dropdown-toggle.btn-mine:hover,
+.open > .dropdown-toggle.btn-mine:focus,
+.open > .dropdown-toggle.btn-mine.focus,
+.btn-mine.disabled:hover, .btn-mine[disabled]:hover, fieldset[disabled] .btn-mine:hover,
+.btn-mine.disabled:focus, .btn-mine[disabled]:focus, fieldset[disabled] .btn-mine:focus,
+.btn-mine.disabled.focus, .btn-mine[disabled].focus, fieldset[disabled] .btn-mine.focus,
+.btn-mine:not(:disabled):not(.disabled).active, .btn-mine:not(:disabled):not(.disabled):active,
+.show > .btn-mine.dropdown-toggle {
+    background: #ddd;
+    color: #333;
+    border-color: #adadad;
+}
+
+.btn-primary.outline {
+    border: 3px solid #ccc;
+    color: #fff;
 }

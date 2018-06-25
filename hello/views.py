@@ -39,6 +39,7 @@ class SubtitleDetailView(HitCountDetailView):
         context['subtitle_time'] = {key: time.hour * 3600 + time.minute * 60 + time.second
                                     for key, time in [('begin', subtitle.begin),
                                                       ('end', subtitle.end)]}
+        context['subtitle_time']['end'] += 1
         return context
 
 
@@ -96,7 +97,7 @@ class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
     model = Subtitle
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
-    paginate_by = 50
+    paginate_by = 100
     ordering = ['hit_count_generic__hits', '-captiontrack__video__published', 'begin']
     pages_around = 1
     pages_edge = 2
