@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponseGone
+from django.shortcuts import render, get_object_or_404, reverse
+from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseGone, HttpResponsePermanentRedirect
 from django.views import generic
 from hitcount.views import HitCountDetailView, HitCountMixin
 from hitcount.models import HitCount
@@ -14,17 +15,7 @@ logger = getLogger('__name__')
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    # return HttpResponse('Hello from Python!')
-    return render(request, 'index.html')
-
-
-class IndexView(generic.ListView):
-    template_name = 'index.html'
-    context_object_name = 'subtitle_list'
-
-    def get_queryset(self) -> Any:
-        """Return subtitles."""
-        return Subtitle.objects.all()
+    return HttpResponsePermanentRedirect(reverse('sirobutton:home'))
 
 
 class SubtitleDetailView(HitCountDetailView):
