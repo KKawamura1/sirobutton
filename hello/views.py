@@ -105,6 +105,7 @@ class SubtitleListView(generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['pages'] = self._get_pages(context)
+        context['search_box'] = self.request.GET.get('search', '')
         return context
 
     def _get_pages(self, context: Dict[str, Any]) -> List[Dict[str, Any]]:
