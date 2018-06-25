@@ -20,7 +20,7 @@
   <ul class="buttons">
     {% for subtitle in subtitles %}
     <li class="text-no-wrap">
-      <a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}">
+      <a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}" target="_blank">
 	{{ subtitle.content }}
       </a>
       <a class="show-detail" href="{% url 'sirobutton:subtitle-detail' subtitle.id %}">?</a>
