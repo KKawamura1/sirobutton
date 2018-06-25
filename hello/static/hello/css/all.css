@@ -61,6 +61,38 @@ div.video iframe{
     color: #fff;
 }
 
+/* tag bottun */
+.btn-tag {
+    background: #9ce;
+    color: #333;
+    background-image: linear-gradient(to bottom, #bff 0%, #7ac 100%);
+    text-shadow: 0 1px 0 #bbb;
+    border-color: #7ab;
+    border-radius: .3rem;
+}
+
+.btn-tag:hover, .btn-tag:focus,
+.btn-tag:active, .btn-tag:active:focus, .btn-tag:active:hover, .btn-tag:active.focus,
+.btn-tag.active, .btn-tag.active:focus, .btn-tag.active:hover, .btn-tag.active.focus,
+.open > .dropdown-toggle.btn-tag,
+.open > .dropdown-toggle.btn-tag:hover,
+.open > .dropdown-toggle.btn-tag:focus,
+.open > .dropdown-toggle.btn-tag.focus,
+.btn-tag.disabled:hover, .btn-tag[disabled]:hover, fieldset[disabled] .btn-tag:hover,
+.btn-tag.disabled:focus, .btn-tag[disabled]:focus, fieldset[disabled] .btn-tag:focus,
+.btn-tag.disabled.focus, .btn-tag[disabled].focus, fieldset[disabled] .btn-tag.focus,
+.btn-tag:not(:disabled):not(.disabled).active, .btn-tag:not(:disabled):not(.disabled):active,
+.show > .btn-tag.dropdown-toggle {
+    background: #8bd;
+    color: #333;
+    border-color: #69a;
+}
+
+.btn-primary.outline {
+    border: 3px solid #ccc;
+    color: #fff;
+}
+
 /* custom background colors */
 .bg-top-nav {
     background-image: linear-gradient(to bottom, rgba(96, 220, 255, 0.8) 0%, rgba(50, 160, 200, 0.8) 100%);

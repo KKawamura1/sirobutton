@@ -18,6 +18,15 @@
   </div>
 
   <dl class="m-2">
+    <dt>タグ</dt>
+    <dd>
+      {% for tag in subtitle.tags.all %}
+      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
+      {% endfor %}
+    </dd>
+  </dl>
+
+  <dl class="m-2">
     <dt>アクセス数</dt>
     <dd>{{ hitcount.total_hits }}</dd>
     <dt>内容</dt>

@@ -7,7 +7,7 @@
   <!-- search box -->
   <form class="raw" method="get">
     <div class="input-group p-2 p-md-3">
-      <input type="search" name="search" class="search-query form-control" placeholder="Search..." value="{{ search_box }}">
+      <input type="search" name="search" class="search-query form-control" placeholder="Search..." value="{{ search_query }}">
       <span class="input-group-btn">
 	<button class="btn" type="submit">
 	  <img src="{% static 'hello/images/search.png' %}" height="20px" alt="submit search">
@@ -16,6 +16,30 @@
     </div>
   </form>
 
+  <!-- search queries -->
+  <div class="bg-white-transparent m-2 m-md-3 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
+    {% if search_query %}
+    <p class="m-1">
+      検索ワード:
+      {% for search in searches %}
+      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search }}">{{ search }}</a>
+      {% endfor %}
+    </p>
+    {% endif %}
+    {% if tag_query %}
+    <p class="m-1">
+      検索タグ:
+      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_query }}">{{ tag_query }}</a>
+    </p>
+    {% endif %}
+    {% if search_query or tag_query %}
+    <p class="m-1">
+      検索結果: {{ page_obj.paginator.count }} 件
+    </p>
+    {% endif %}
+  </div>
+
+  <!-- main buttons -->
   {% if subtitles %}
   <ul class="buttons">
     {% for subtitle in subtitles %}
@@ -28,8 +52,6 @@
     {% endfor %}
   </ul>
 
-  {% else %}
-  <p>No subtitles are available.</p>
   {% endif %}
 
   <nav aria-label="Buttons list pages">

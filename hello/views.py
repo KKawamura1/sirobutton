@@ -94,22 +94,30 @@ class SubtitleListView(generic.ListView):
     pages_edge = 2
 
     def get_queryset(self) -> Any:
-        queryset = super().get_queryset()
+        result_qs = super().get_queryset()
+        # content search
         search_query = self.request.GET.get('search', '')
-        search_targets = search_query.split(' ')
-        regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
-        yomi_search = queryset.filter(yomi__regex=regex_query)
-        if yomi_search.exists():
-            result_qs = yomi_search
-        else:
-            content_search = queryset.filter(content__regex=regex_query)
-            result_qs = content_search
+        if search_query:
+            search_targets = search_query.split(' ')
+            regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
+            yomi_search = result_qs.filter(yomi__regex=regex_query)
+            if yomi_search.exists():
+                result_qs = yomi_search
+            else:
+                content_search = result_qs.filter(content__regex=regex_query)
+                result_qs = content_search
+        # tag search
+        tag_search_query = self.request.GET.get('tag', '')
+        if tag_search_query:
+            result_qs = result_qs.filter(tags__title__exact=tag_search_query)
         return result_qs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['pages'] = self._get_pages(context)
-        context['search_box'] = self.request.GET.get('search', '')
+        context['search_query'] = self.request.GET.get('search', '')
+        context['searches'] = context['search_query'].split(' ')
+        context['tag_query'] = self.request.GET.get('tag', '')
         return context
 
     def _get_pages(self, context: Dict[str, Any]) -> List[Dict[str, Any]]:
