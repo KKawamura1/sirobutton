@@ -33,6 +33,14 @@ class SubtitleDetailView(HitCountDetailView):
     template_name = 'subtitle_detail.html'
     count_hit = True
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        subtitle: Subtitle = context['subtitle']
+        context['subtitle_time'] = {key: time.hour * 3600 + time.minute * 60 + time.second
+                                    for key, time in [('begin', subtitle.begin),
+                                                      ('end', subtitle.end)]}
+        return context
+
 
 class RedirectToYoutubeView(generic.View):
     url_base = 'https://www.youtube.com/watch'

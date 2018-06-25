@@ -2,3 +2,17 @@ ul.buttons li {
     display: inline-block;
     margin: 3px;
 }
+
+/* see: http://www.aiship.jp/knowhow/archives/29116 */
+div.video {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+}
+div.video iframe{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
