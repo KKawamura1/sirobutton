@@ -24,12 +24,10 @@
     <dd>{{ subtitle.content }}</dd>
     <dt>読み</dt>
     <dd>{{ subtitle.yomi }}</dd>
-    <dt>短縮タイトル</dt>
-    <dd>{{ subtitle.short_title }}</dd>
     <dt>動画タイトル</dt>
     <dd>{{ subtitle.captiontrack.video.title }}</dd>
     <dt>時間</dt>
-    <dd>{{ subtitle.begin|time:"H:i:s.u" }}〜{{ subtitle.end|time:"H:i:s.u" }}</dd>
+    <dd>{{ subtitle.begin|time:"H:i:s.u"|slice:":11" }}〜{{ subtitle.end|time:"H:i:s.u"|slice:":11" }}</dd>
     <dt>更新日</dt>
     <dd>{{ subtitle.last_updated|date }}</dd>
   </dl>
