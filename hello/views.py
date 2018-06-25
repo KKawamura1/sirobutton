@@ -84,7 +84,7 @@ class RedirectToYoutubeView(generic.View):
             logger.info('hit count failed: {}'.format(hit_count_response))
 
 
-class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
+class SubtitleListView(generic.ListView):
     model = Subtitle
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
@@ -93,9 +93,23 @@ class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
     pages_around = 1
     pages_edge = 2
 
+    def get_queryset(self) -> Any:
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('search', '')
+        search_targets = search_query.split(' ')
+        regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
+        yomi_search = queryset.filter(yomi__regex=regex_query)
+        if yomi_search.exists():
+            result_qs = yomi_search
+        else:
+            content_search = queryset.filter(content__regex=regex_query)
+            result_qs = content_search
+        return result_qs
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['pages'] = self._get_pages(context)
+        context['search_box'] = self.request.GET.get('search', '')
         return context
 
     def _get_pages(self, context: Dict[str, Any]) -> List[Dict[str, Any]]:
