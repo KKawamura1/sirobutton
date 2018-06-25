@@ -9,4 +9,5 @@ urlpatterns = [
     path('subtitle/<int:pk>/', hello.views.SubtitleDetailView.as_view(), name='subtitle-detail'),
     path('jump-to-youtube/<int:pk>/', hello.views.RedirectToYoutubeView.as_view(),
          name='jump-to-youtube'),
+    path('api/v1/post-add-tag/', hello.views.PostAddTagView.as_view(), name='add-tag')
 ]

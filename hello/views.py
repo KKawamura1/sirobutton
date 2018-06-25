@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpRequest, HttpResponse
 from django.http import HttpResponseRedirect, HttpResponseGone, HttpResponsePermanentRedirect
+from django.http import JsonResponse
 from django.views import generic
 from hitcount.views import HitCountDetailView, HitCountMixin
 from hitcount.models import HitCount
 import urllib.parse
+import json
 from typing import List, Any, Dict
 from logging import getLogger
 
@@ -183,3 +185,16 @@ class SubtitleListView(generic.ListView):
                  + you_are_here
                  + right_around_pages + right_ellip + right_edge_pages)
         return pages
+
+
+class PostAddTagView(generic.View):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        print(self.request, flush=True)
+        print(self.request.POST, flush=True)
+        print(args, kwargs, flush=True)
+        tag_title = request.POST.get('tag_title')
+        subtitle_id = request.POST.get('subtitle_id')
+        print(subtitle_id, flush=True)
+        subtitle = get_object_or_404(Subtitle, id=subtitle_id)
+        response = {'tag_title': tag_title + '!!!' + subtitle.content}
+        return JsonResponse(response)

@@ -23,6 +23,17 @@
       {% for tag in subtitle.tags.all %}
       <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
       {% endfor %}
+      <!-- add new or existing tags -->
+      <form id="add-tag-form" action="{% url 'sirobutton:add-tag' %}" method="post">
+	{% csrf_token %}
+	<input id="add-tag-text" type="text" class="form-control">
+	<span class="input-group-btn">
+	  <button class="btn btn-mine" type="submit">
+	    +
+	  </button>
+	</span>
+	<span class="hidden" id="subtitle_id">{{ subtitle.id }}</span>
+      </form>
     </dd>
   </dl>
 
