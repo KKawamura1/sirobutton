@@ -1,8 +1,10 @@
+{% load extra %}
+
 {% if is_paginated %}
 <ul class="pagination justify-content-center">
   {% if page_obj.has_previous %}
   <li class="page-item">
-    <a class="page-link" aria-label="Previous" href="{% url url_param %}?page={{ page_obj.previous_page_number }}">
+    <a class="page-link" aria-label="Previous" href="{% url url_param %}?{% url_replace request 'page' page_obj.previous_page_number %}">
   {% else %}
   <li class="page-item disabled">
     <a class="page-link" aria-label="Previous" href="#">
@@ -15,7 +17,7 @@
   {% for page in pages %}
   {% if page.link %}
   <li class="page-item">
-    <a class="page-link" href="{% url url_param %}?page={{ page.number }}">{{ page.number }}</a>
+    <a class="page-link" href="{% url url_param %}?{% url_replace request 'page' page.number %}">{{ page.number }}</a>
   </li>
   {% elif page.type == 'you_are_here' %}
   <li class="page-item active">
@@ -29,7 +31,7 @@
 
   {% if page_obj.has_next %}
   <li class="page-item">
-    <a class="page-link" aria-label="Next" href="{% url url_param %}?page={{ page_obj.next_page_number }}">
+    <a class="page-link" aria-label="Next" href="{% url url_param %}?{% url_replace request 'page' page_obj.next_page_number %}">
   {% else %}
   <li class="page-item disabled">
     <a class="page-link" aria-label="Next" href="#">
