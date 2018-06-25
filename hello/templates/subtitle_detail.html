@@ -24,11 +24,11 @@
       <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
       {% endfor %}
       <!-- add new or existing tags -->
-      <form id="add-tag-form" action="{% url 'sirobutton:add-tag' %}" method="post">
+      <form id="add-tag-form" class="inline-form" action="{% url 'sirobutton:add-tag' %}" method="post">
 	{% csrf_token %}
-	<input id="add-tag-text" type="text" class="form-control">
+	<input id="add-tag-text" type="text" class="form-control p-1">
 	<span class="input-group-btn">
-	  <button class="btn btn-mine" type="submit">
+	  <button class="btn btn-mine btn-sm" type="submit">
 	    +
 	  </button>
 	</span>
