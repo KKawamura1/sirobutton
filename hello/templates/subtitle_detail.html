@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container bg-white-transparent col-11 col-lg-8 p-3 p-md-5">
+  {% if subtitle %}
+  <h1 class="h1 m-2">
+    {{ subtitle.content }}
+  </h1>
+  <!-- embed video -->
+  <div class="video">
+    <iframe id="ytplayer" type="text/html"
+	    src="http://www.youtube.com/embed/{{ subtitle.captiontrack.video.video_id }}?start={{ subtitle_time.begin }}&end={{ subtitle_time.end }}"
+	    frameborder="0" allowfullscreen>
+      Embedded youtube video would've been shown here...
+    </iframe>
+  </div>
+
+  <dl class="m-2">
+    <dt>アクセス数</dt>
+    <dd>{{ hitcount.total_hits }}</dd>
+    <dt>内容</dt>
+    <dd>{{ subtitle.content }}</dd>
+    <dt>読み</dt>
+    <dd>{{ subtitle.yomi }}</dd>
+    <dt>短縮タイトル</dt>
+    <dd>{{ subtitle.short_title }}</dd>
+    <dt>動画タイトル</dt>
+    <dd>{{ subtitle.captiontrack.video.title }}</dd>
+    <dt>時間</dt>
+    <dd>{{ subtitle.begin|time:"H:i:s.u" }}〜{{ subtitle.end|time:"H:i:s.u" }}</dd>
+    <dt>更新日</dt>
+    <dd>{{ subtitle.last_updated|date }}</dd>
+  </dl>
+
+  {% else %}
+  <p>No subtitle specified.</p>
+  {% endif %}
+
+</div>
+
+{% endblock %}

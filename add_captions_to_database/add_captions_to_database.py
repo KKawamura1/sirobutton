@@ -17,7 +17,7 @@ class AddCaptionsToDatabase:
             self,
             input_data: Data
     ) -> None:
-        video_assigns = dict(video_id='video_id', title='title')
+        video_assigns = dict(video_id='video_id', title='title', published='published')
         caption_track_assigns = dict(caption_id='caption_id', language='language',
                                      parent_video='video')
         subtitle_assigns = dict(begin='begin', end='end', content='content',
