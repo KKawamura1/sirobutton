@@ -31,32 +31,23 @@ $.ajaxSetup({
 // posts tag-addition request
 // see: https://qiita.com/juniskw/items/7fa72f91e3dc899a80ae
 function add_tag_submit() {
-    console.log({
-	'url': $('form#add-tag-form').attr('action'),
-	'type': 'POST',
-	'data': {
-	    'tag_title':$('#add-tag-text').val(),
-	    'subtitle_id':$('span#subtitle_id').val(),
-	},
-    });
-    alert('ho');
-    // $.ajax({
-    // 	'url': $('form#add-tag-form').attr('action'),
-    // 	'type': 'POST',
-    // 	'data': {
-    // 	    'tag_title':$('#add-tag-text').val(),
-    // 	    'subtitle_id':$('span#subtitle_id').val(),
-    // 	},
-    // }).then(
-    // 	function (response) {
-    // 	    // success
-    // 	    alert(response.tag_title)
-    // 	},
-    // 	function () {
-    // 	    // failure
-    // 	    alert('failed!!!')
-    // 	}
-    // );
+    $.ajax({
+    	'url': $('form#add-tag-form').attr('action'),
+    	'type': 'POST',
+    	'data': {
+    	    'tag_title':$('#add-tag-text').val(),
+    	    'subtitle_id':$('span#subtitle_id').text(),
+    	},
+    }).then(
+    	function (response) {
+    	    // success
+    	    alert(response.tag_title)
+    	},
+    	function () {
+    	    // failure
+    	    alert('failed!!!')
+    	}
+    );
     return false;
 }
 $(document).ready(function() {

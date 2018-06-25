@@ -189,12 +189,8 @@ class SubtitleListView(generic.ListView):
 
 class PostAddTagView(generic.View):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        print(self.request, flush=True)
-        print(self.request.POST, flush=True)
-        print(args, kwargs, flush=True)
         tag_title = request.POST.get('tag_title')
         subtitle_id = request.POST.get('subtitle_id')
-        print(subtitle_id, flush=True)
         subtitle = get_object_or_404(Subtitle, id=subtitle_id)
         response = {'tag_title': tag_title + '!!!' + subtitle.content}
         return JsonResponse(response)
