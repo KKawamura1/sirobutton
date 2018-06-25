@@ -4,6 +4,18 @@
 {% block content %}
 
 <div class="container col-12 col-sm-11 col-md-10 col-lg-9">
+  <!-- search box -->
+  <form class="raw" method="get">
+    <div class="input-group p-2 p-md-3">
+      <input type="search" name="search" class="search-query form-control" placeholder="Search...">
+      <span class="input-group-btn">
+	<button class="btn" type="submit">
+	  <img src="{% static 'hello/images/search.png' %}" height="20px" alt="submit search">
+	</button>
+      </span>
+    </div>
+  </form>
+
   {% if subtitles %}
   <ul class="buttons">
     {% for subtitle in subtitles %}
