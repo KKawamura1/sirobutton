@@ -81,7 +81,7 @@ class RedirectToYoutubeView(generic.View):
         hit_count = HitCount.objects.get_for_object(subtitle)
         hit_count_response = HitCountMixin.hit_count(request, hit_count)
         if not hit_count_response.hit_counted:
-            logger.error('hit count failed! {}'.format(hit_count_response))
+            logger.info('hit count failed: {}'.format(hit_count_response))
 
 
 class SubtitleListView(generic.ListView, generic.list.MultipleObjectMixin):
