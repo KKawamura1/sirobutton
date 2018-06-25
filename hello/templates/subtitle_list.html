@@ -3,24 +3,26 @@
 
 {% block content %}
 
-{% if subtitles %}
-<ul class="buttons">
-  {% for subtitle in subtitles %}
-  <li>
-    <a class="btn btn-secondary btn-mine btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}">
-      {{ subtitle.content }}
-    </a>
-    <a class="show-detail" href="{% url 'sirobutton:subtitle-detail' subtitle.id %}">?</a>
-  </li>
-  {% endfor %}
-</ul>
+<div class="container col-12 col-sm-11 col-md-10 col-lg-9">
+  {% if subtitles %}
+  <ul class="buttons">
+    {% for subtitle in subtitles %}
+    <li class="text-no-wrap">
+      <a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}">
+	{{ subtitle.content }}
+      </a>
+      <a class="show-detail" href="{% url 'sirobutton:subtitle-detail' subtitle.id %}">?</a>
+    </li>
+    {% endfor %}
+  </ul>
 
-{% else %}
-<p>No subtitles are available.</p>
-{% endif %}
+  {% else %}
+  <p>No subtitles are available.</p>
+  {% endif %}
 
-<nav aria-label="Buttons list pages">
-  {% include "share_pagination.html" with url_param="sirobutton:lists" %}
-</nav>
+  <nav aria-label="Buttons list pages">
+    {% include "share_pagination.html" with url_param="sirobutton:lists" %}
+  </nav>
 
+</div>
 {% endblock %}

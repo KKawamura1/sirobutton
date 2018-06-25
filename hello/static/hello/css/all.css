@@ -60,3 +60,42 @@ div.video iframe{
     border: 3px solid #ccc;
     color: #fff;
 }
+
+/* custom background colors */
+.bg-top-nav {
+    background-image: linear-gradient(to bottom, rgba(96, 220, 255, 0.8) 0%, rgba(50, 160, 200, 0.8) 100%);
+}
+
+/* text shadow */
+.text-shadow-dark {
+    text-shadow: 0 0.03em 0 #333;
+}
+
+/* overflow for nav-scroll */
+.navbar .navbar-nav-scroll {
+    max-width: 100%;
+    height: 2.5rem;
+    margin-top: .25rem;
+    overflow: hidden;
+    font-size: .875rem;
+}
+.navbar .navbar-nav-scroll .navbar-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* button break-line */
+.btn-with-break {
+    white-space: normal;
+}
+
+/* dont break line */
+.text-no-wrap {
+    white-space: nowrap;
+}
+
+/* semi-transparent bg */
+.bg-white-transparent {
+    background-color: rgba(255, 255, 255, 0.8);
+}
