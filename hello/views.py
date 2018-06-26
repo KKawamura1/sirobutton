@@ -161,6 +161,16 @@ class MyListViewWithPagination(generic.ListView):
         return pages
 
 
+class TagListView(MyListViewWithPagination):
+    model = Tag
+    context_object_name = 'tags'
+    template_name = 'tag_list.html'
+    paginate_by = 10
+    ordering = ['-created_at']
+    pages_around = 1
+    pages_edge = 2
+
+
 class SubtitleListView(MyListViewWithPagination):
     model = Subtitle
     context_object_name = 'subtitles'
