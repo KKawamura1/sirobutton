@@ -109,7 +109,8 @@ class SubtitleListView(generic.ListView):
                 content_search = result_qs.filter(content__regex=regex_query)
                 result_qs = content_search
         # tag search
-        tag_search_query = self.request.GET.get('tag', '')
+        tag_search_query_encoded = self.request.GET.get('tag', '')
+        tag_search_query = urllib.parse.unquote(tag_search_query_encoded)
         if tag_search_query:
             result_qs = result_qs.filter(tags__title__exact=tag_search_query)
         return result_qs
@@ -199,10 +200,17 @@ class PostAddTagView(generic.View):
         # get data in POST request
         tag_title = request.POST.get('tag_title')
         subtitle_id = request.POST.get('subtitle_id')
-        # check tag title is not blank
+        # check whether the tag title is valid
         if not tag_title:
             return JsonResponse(dict(created=False, status_code=2,
                                      error_message='The tag title is blank.'))
+        invalid_chars = set(['<', '>', '&', '"', "'", '`', ' '])
+        used_invalid_chars = set(str(tag_title)) & invalid_chars
+        if used_invalid_chars:
+            error_message = 'Invalid character is used: {}'.format(used_invalid_chars)
+            return JsonResponse(dict(created=False, status_code=3,
+                                     error_message=error_message,
+                                     used_invalid_chars=list(used_invalid_chars)))
         # make a tag with given info
         tag_target = dict(title=tag_title)
         tag, tag_created = Tag.objects.get_or_create(title=tag_title, defaults=tag_target)

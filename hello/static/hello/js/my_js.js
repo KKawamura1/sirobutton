@@ -40,7 +40,10 @@ function failed_in_add_tag_submit(jqXHR, textStatus, errorThrown, response) {
 	if (response['status_code'] === 1) {
 	    $("#add-tag-error-body").html("<p>そのタグはすでに付けられています。</p>");
 	} else if (response['status_code'] === 2) {
-	    $("#add-tag-error-body").html("<p>タグの内容がありません。</p>")
+	    $("#add-tag-error-body").html("<p>タグの内容がありません。</p>");
+	} else if (response['status_code'] === 3) {
+	    var invalid_chars = response['used_invalid_chars'];
+	    $("#add-tag-error-body").html(`<p>タグとして使用できない文字が含まれています。</p><p>${ invalid_chars }</p>`);
 	} else {
 	    $("#add-tag-error-body").html("<p>サーバー側のエラーです。</p><p>" + response['error_message'] + "</p>");
 	}
@@ -50,11 +53,12 @@ function add_tag_submit() {
     $('#error-show-button').addClass('hidden');
     $('#add-tag-error-collapse').removeClass('show');
     var subtitle_id = $('span#subtitle_id').text();
+    var tag_title = $('#add-tag-text').val();
     $.ajax({
     	'url': $('form#add-tag-form').attr('action'),
     	'type': 'POST',
     	'data': {
-    	    'tag_title': $('#add-tag-text').val().replace(/</g, "&lt;").replace(/>/g, "&gt;"),
+    	    'tag_title': tag_title,
     	    'subtitle_id': subtitle_id,
     	},
     }).done(function (response, textStatus, jqXHR) {
@@ -69,7 +73,7 @@ function add_tag_submit() {
 	    $('span#tags-span').append(
 		`
 <span id="tag-${ tag_id }" class="each-tag m-1">
- <a class="btn btn-tag btn-sm" role="button" href=${ lists_url }?tag=${ tag_title }>${ tag_title }</a>
+ <a class="btn btn-tag btn-sm" role="button" href=${ lists_url }?tag=${ encodeURIComponent(tag_title) }>${ tag_title }</a>
  <a class="tag-delete-button" href="#" role="button" onclick="return remove_tag('${ tag_id }', '${ tag_title }', '${ subtitle_id }', '${ remove_url }');">×</a>
 </span>
 `

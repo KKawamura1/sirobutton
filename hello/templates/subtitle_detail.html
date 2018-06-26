@@ -24,7 +24,7 @@
       <span id="tags-span">
 	{% for tag in subtitle.tags.all %}
 	<span id="tag-{{ tag.id }}" class="each-tag m-1">
-	  <a class="btn btn-tag btn-sm" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
+	  <a class="btn btn-tag btn-sm" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title | urlencode }}">{{ tag.title }}</a>
 	  <a class="tag-delete-button" href="#" role="button" onclick="return remove_tag('{{ tag.id }}', '{{ tag.title }}', '{{ subtitle.id }}', '{% url 'sirobutton:remove-tag' %}');">×</a>
 	</span>
 	{% endfor %}
