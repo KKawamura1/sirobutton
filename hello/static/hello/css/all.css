@@ -3,12 +3,12 @@ ul.buttons li {
     margin: 3px;
 }
 
-a.show-detail {
+a.show-detail, a.tag-delete-button {
     color: #ccf;
     text-shadow: 0 1px 0 #333;
     font-size: small;
 }
-a.show-detail:hover {
+a.show-detail:hover, a.tag-delete-button:hover {
     color: #99d;
     text-shadow: 0 1px 0 #222;
 }
@@ -144,4 +144,9 @@ form.inline-form {
 form.inline-form .form-control {
     display: inline-block;
     width: auto;
+}
+
+/* tag buttons */
+span.each-tag {
+    display: inline-block;
 }

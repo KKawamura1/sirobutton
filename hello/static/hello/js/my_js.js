@@ -49,21 +49,31 @@ function failed_in_add_tag_submit(jqXHR, textStatus, errorThrown, response) {
 function add_tag_submit() {
     $('#error-show-button').addClass('hidden');
     $('#add-tag-error-collapse').removeClass('show');
+    var subtitle_id = $('span#subtitle_id').text();
     $.ajax({
     	'url': $('form#add-tag-form').attr('action'),
     	'type': 'POST',
     	'data': {
-    	    'tag_title':$('#add-tag-text').val().replace(/</g, "&lt;").replace(/>/g, "&gt;"),
-    	    'subtitle_id':$('span#subtitle_id').text(),
+    	    'tag_title': $('#add-tag-text').val().replace(/</g, "&lt;").replace(/>/g, "&gt;"),
+    	    'subtitle_id': subtitle_id,
     	},
     }).done(function (response, textStatus, jqXHR) {
 	var created = response['created'];
 	if (created) {
 	    // success
-	    var url = $('span#subtitle_lists_url').text();
+	    // make a new tag button
+	    var lists_url = $('span#subtitle_lists_url').text();
+	    var remove_url = $('span#remove_tag_url').text();
 	    var tag_title = response['tag_title'];
 	    var tag_id = response['tag_id'];
-	    $('span#tags-span').append(`<a class="btn btn-tag btn-sm m-1" role="button" href=${ url }?tag=${ tag_title }>${ tag_title }</a>`);
+	    $('span#tags-span').append(
+		`
+<span id="tag-${ tag_id }" class="each-tag m-1">
+ <a class="btn btn-tag btn-sm" role="button" href=${ lists_url }?tag=${ tag_title }>${ tag_title }</a>
+ <a class="tag-delete-button" href="#" role="button" onclick="return remove_tag('${ tag_id }', '${ tag_title }', '${ subtitle_id }', '${ remove_url }');">×</a>
+</span>
+`
+	    );
 	    $('#add-tag-text').val("");
 	} else {
 	    // fail
@@ -77,3 +87,52 @@ function add_tag_submit() {
 $(document).ready(function() {
     $('form#add-tag-form').submit(add_tag_submit);
 });
+
+// posts tag-removing request
+function failed_in_remove_tag_submit(jqXHR, textStatus, errorThrown, response) {
+    $('#error-show-button').removeClass('hidden');
+    if (typeof response === null) {
+	// no http response
+	$("#add-tag-error-body").html("<p>通信エラーです。status: " + jqXHR.status + "</p>" + errorThrown);
+    } else {
+	// response exists
+	if (response['status_code'] === 1) {
+	    $("#add-tag-error-body").html("<p>そのタグはすでに削除されています。</p>");
+	} else {
+	    $("#add-tag-error-body").html("<p>サーバー側のエラーです。</p><p>" + response['error_message'] + "</p>");
+	}
+    }
+}
+function remove_tag_submit(tag_id, subtitle_id, url) {
+    $('#error-show-button').addClass('hidden');
+    $('#add-tag-error-collapse').removeClass('show');
+    $.ajax({
+    	'url': url,
+    	'type': 'POST',
+    	'data': {
+    	    'tag_id':tag_id,
+    	    'subtitle_id':subtitle_id,
+    	},
+    }).done(function (response, textStatus, jqXHR) {
+	var removed = response['removed'];
+	if (removed) {
+	    // success
+	    tag_title = response['tag_title']
+	    $(`span#tag-${tag_id}`).remove();
+	    $('#add-tag-text').val(tag_title);
+	} else {
+	    // fail
+	    failed_in_remove_tag_submit(jqXHR, textStatus, null, response);
+	}
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+	failed_in_remove_tag_submit(jqXHR, textStatus, errorThrown, null);
+    });
+    return false;
+}
+function remove_tag(tag_id, tag_title, subtitle_id, url) {
+    var okay = window.confirm(`タグ ${ tag_title } を削除してもよろしいですか？`);
+    if (okay) {
+	remove_tag_submit(tag_id, subtitle_id, url);
+    }
+    return false;
+}

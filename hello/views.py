@@ -215,3 +215,27 @@ class PostAddTagView(generic.View):
             error_message = 'Unexpected error is occurred. the error is: {}'.format(ext)
             return JsonResponse(dict(created=False, status_code=-1,
                                      error_message=error_message))
+
+
+class PostRemoveTagView(generic.View):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # get data in POST request
+        tag_id = request.POST.get('tag_id')
+        subtitle_id = request.POST.get('subtitle_id')
+        # check the ids are valid
+        tag = get_object_or_404(Tag, id=tag_id)
+        subtitle = get_object_or_404(Subtitle, id=subtitle_id)
+        # check if the tag is in the subtitle
+        if not subtitle.tags.all().filter(id__exact=tag_id).exists():
+            return JsonResponse(dict(removed=False, status_code=1,
+                                     error_message='The tag is not in the subtitle.'))
+        # remove the tag
+        try:
+            subtitle.tags.remove(tag)
+            return JsonResponse(dict(removed=True, status_code=0,
+                                     error_message='Success.',
+                                     tag_title=tag.title))
+        except Exception as ext:
+            error_message = 'Unexpected error is occurred. the error is: {}'.format(ext)
+            return JsonResponse(dict(removed=False, status_code=-1,
+                                     error_message=error_message))
