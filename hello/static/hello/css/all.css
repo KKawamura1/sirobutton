@@ -200,7 +200,7 @@ img.circle-img {
     white-space: normal;
     display: block;
     padding: 0px;
-    background-color: rgba(255, 255, 255, 1.0);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 0.8em;
 }
 .btn-card .card {
@@ -208,7 +208,7 @@ img.circle-img {
     border: none;
 }
 .btn-card:hover {
-    background-color: rgba(245, 252, 255, 0.95);
+    background-color: rgba(245, 252, 255, 0.85);
 }
 
 /* font size with responsive */
