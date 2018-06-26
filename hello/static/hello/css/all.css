@@ -164,3 +164,14 @@ span.each-tag {
 .form-group label.col-form-label {
     white-space: nowrap;
 }
+
+/* brand text */
+.navbar-brand-text {
+    text-shadow: 0px 0.5px 2px #cff;
+}
+.text-blue-shadow {
+    text-shadow: 0px 0.5px 2px #cff;
+}
+.text-small-blue-shadow {
+    text-shadow: 0px 0.5px 1px #add;
+}

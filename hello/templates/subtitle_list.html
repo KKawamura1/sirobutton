@@ -21,7 +21,9 @@
   <div class="bg-white-transparent m-2 m-md-3 mt-3 mb-3 mb-md-4 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
     {% if searches %}
     <p class="m-1">
-      検索ワード:
+      <span class="text-blue-shadow">
+	検索ワード:
+      </span>
       {% for search in searches %}
       <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search }}">{{ search }}</a>
       {% endfor %}
@@ -29,7 +31,9 @@
     {% endif %}
     {% if tag_searches %}
     <p class="m-1">
-      検索タグ:
+      <span class="text-blue-shadow">
+	検索タグ:
+      </span>
       {% for tag_search in tag_searches %}
       <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_search }}">{{ tag_search }}</a>
       {% endfor %}
@@ -37,13 +41,15 @@
     {% endif %}
     {% if video_searches %}
     <p class="m-1">
-      動画検索:
+      <span class="text-blue-shadow">
+	動画検索:
+      </span>
       {% for video_search in video_searches %}
       <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ video_search }}">{{ video_search }}</a>
       {% endfor %}
     </p>
     {% endif %}
-    <p class="m-1 mt-3 mb-2">
+    <p class="m-1 mt-3 mb-2 text-blue-shadow">
       検索結果: {{ page_obj.paginator.count }} 件
     </p>
   </div>
