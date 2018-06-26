@@ -134,7 +134,7 @@ div.video iframe{
 
 /* hidden element */
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 /* inline form */
