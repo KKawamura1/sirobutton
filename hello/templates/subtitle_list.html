@@ -16,9 +16,9 @@
     </div>
   </form>
 
-  {% if searches or tag_query %}
+  {% if searches or tag_searches or video_searches %}
   <!-- search queries -->
-  <div class="bg-white-transparent m-2 m-md-3 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
+  <div class="bg-white-transparent m-2 m-md-3 mt-3 mb-3 mb-md-4 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
     {% if searches %}
     <p class="m-1">
       検索ワード:
@@ -27,13 +27,23 @@
       {% endfor %}
     </p>
     {% endif %}
-    {% if tag_query %}
+    {% if tag_searches %}
     <p class="m-1">
       検索タグ:
-      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_query }}">{{ tag_query }}</a>
+      {% for tag_search in tag_searches %}
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_search }}">{{ tag_search }}</a>
+      {% endfor %}
     </p>
     {% endif %}
+    {% if video_searches %}
     <p class="m-1">
+      動画検索:
+      {% for video_search in video_searches %}
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ video_search }}">{{ video_search }}</a>
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="m-1 mt-3 mb-2">
       検索結果: {{ page_obj.paginator.count }} 件
     </p>
   </div>
@@ -41,7 +51,7 @@
 
   <!-- main buttons -->
   {% if subtitles %}
-  <ul class="buttons">
+  <ul class="buttons pt-2">
     {% for subtitle in subtitles %}
     <li class="text-no-wrap">
       <a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="{% url 'sirobutton:jump-to-youtube' subtitle.id %}" target="_blank">

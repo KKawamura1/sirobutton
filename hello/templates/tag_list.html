@@ -3,27 +3,28 @@
 
 {% block content %}
 
-<div class="container bg-white-transparent col-11 col-lg-8 p-3 p-md-5">
-  <p class="lead blockquote text-center">
-    タグ一覧
-  </p>
-  <!-- main buttons -->
-  {% if tags %}
-  <ul class="buttons">
-    {% for tag in tags %}
-    <li class="text-no-wrap">
-      <a class="btn btn-tag btn-with-break btn-sm" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title | urlencode }}">
-	{{ tag.title }}
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
+<div class="container col-11 col-md-10 col-lg-8">
+  <div class="bg-white-transparent p-3 p-md-4 m-3 m-md-5">
+    <p class="lead blockquote text-center">
+      タグ一覧
+    </p>
+    <!-- main buttons -->
+    {% if tags %}
+    <ul class="buttons p-1">
+      {% for tag in tags %}
+      <li class="text-no-wrap">
+	<a class="btn btn-tag btn-with-break btn-sm" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title | urlencode }}">
+	  {{ tag.title }}
+	</a>
+      </li>
+      {% endfor %}
+    </ul>
 
-  {% endif %}
+    {% endif %}
 
-  <nav aria-label="Buttons list pages">
-    {% include "share_pagination.html" with url_param="sirobutton:tags" %}
-  </nav>
-
+    <nav aria-label="Buttons list pages">
+      {% include "share_pagination.html" with url_param="sirobutton:tags" %}
+    </nav>
+  </div>
 </div>
 {% endblock %}
