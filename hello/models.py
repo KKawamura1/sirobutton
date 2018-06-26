@@ -26,6 +26,14 @@ class CaptionTrack(models.Model):
         return '<CaptionTrack of {}, language: {}>'.format(self.video, self.language)
 
 
+class Tag(models.Model):
+    title = models.CharField('tag title', max_length=100)
+    created_at = models.DateTimeField('tag created time', auto_now_add=True)
+
+    def __str__(self) -> str:
+        return '<Tag: {}>'.format(self.title)
+
+
 class Subtitle(models.Model, HitCountMixin):
     id = models.AutoField(primary_key=True)
     captiontrack = models.ForeignKey(CaptionTrack, on_delete=models.CASCADE)
@@ -38,6 +46,8 @@ class Subtitle(models.Model, HitCountMixin):
     # see: http://django-hitcount.readthedocs.io/en/latest/installation.html#models
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
                                         related_query_name='hit_count_generic_relation')
+    # many-to-many relation
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self) -> str:
         return '<Subtitle: {}>'.format(self.content)
