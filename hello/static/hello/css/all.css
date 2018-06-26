@@ -1,3 +1,7 @@
+body {
+    font-family: Roboto, Arial, sans-serif, -apple-system, BlinkMacSystemFont,"Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}
+
 ul.buttons li {
     display: inline-block;
     margin: 3px;
@@ -174,4 +178,66 @@ span.each-tag {
 }
 .text-small-blue-shadow {
     text-shadow: 0px 0.5px 1px #add;
+}
+
+/* circle-form image */
+img.circle-img {
+    border-radius: 50%;
+}
+
+/* card with row-direction */
+.row-card {
+    flex-direction: row;
+    align-items: center;
+}
+.row-card .card-body .card-title {
+    margin-bottom: 0px;
+}
+
+/* link with card */
+.btn-card {
+    text-align: initial;
+    white-space: normal;
+    display: block;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 1.0);
+}
+.btn-card .card {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+.btn-card:hover {
+    background-color: rgba(230, 250, 255, 0.8);
+}
+
+/* font size with responsive */
+@media (min-width: 400px) {
+  .h3-xs {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 576px) {
+  .h1-sm {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .h1-md {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 992px) {
+  .h4-lg {
+    font-size: 1.2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .h2-xl {
+    font-size: 2.0rem;
+  }
+}
+
+/* other classes */
+.text-black {
+    color: #111;
 }

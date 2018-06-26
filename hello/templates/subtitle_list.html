@@ -5,7 +5,7 @@
 
 <div class="container col-12 col-sm-11 col-md-10 col-lg-9">
   <!-- search box -->
-  <form method="get">
+  <form method="get" class="row m-0">
     <div class="input-group p-2 p-md-3">
       <input type="search" name="search" class="search-query form-control" placeholder="Search..." value="{{ search_query }}">
       <span class="input-group-btn">
@@ -73,6 +73,31 @@
   <nav aria-label="Buttons list pages">
     {% include "share_pagination.html" with url_param="sirobutton:lists" %}
   </nav>
+
+
+  <div class="m-1 m-sm-2 m-md-3 mt-5 mt-md-5 p-1 p-sm-3 p-md-5 p-lg-1 pt-lg-3 bg-white-transparent row">
+    <div class="col-12 col-lg-6">
+      <a href="#" class="btn btn-card text-black">
+	<div class="card row m-0 row-card">
+	  <div class="col-4 p-3">
+	    <img class="card-img-top circle-img" src="{% static 'hello/images/siro_youtube.jpg' %}" alt="Siro top image">
+	  </div>
+	  <div class="col-8 p-3 card-body">
+	    <h2 class="card-title h4 h2-xs h2-sm h1-md h4-lg h2-xl">
+	      Siro Channel
+	    </h2>
+	    <p class="card-subtitle text-muted">
+	      チャンネルはこちら
+	    </p>
+	  </div>
+	</div>
+      </a>
+    </div>
+    <div class="col-12 col-lg-6">
+      <a class="twitter-timeline" data-lang="ja" data-height="1024" data-theme="light" href="https://twitter.com/SIROyoutuber?ref_src=twsrc%5Etfw">Tweets by SIROyoutuber</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
