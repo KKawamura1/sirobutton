@@ -16,6 +16,7 @@
     </div>
   </form>
 
+  {% if search_query or tag_query %}
   <!-- search queries -->
   <div class="bg-white-transparent m-2 m-md-3 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
     {% if search_query %}
@@ -32,12 +33,11 @@
       <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_query }}">{{ tag_query }}</a>
     </p>
     {% endif %}
-    {% if search_query or tag_query %}
     <p class="m-1">
       検索結果: {{ page_obj.paginator.count }} 件
     </p>
-    {% endif %}
   </div>
+  {% endif %}
 
   <!-- main buttons -->
   {% if subtitles %}
