@@ -30,7 +30,7 @@
     <title>シロボタン</title>
   </head>
   <body>
-    <header class="navbar navbar-expand navbar-light bg-top-nav sticky-top">
+    <header class="navbar navbar-expand navbar-light bg-top-nav sticky-top pr-0">
       <a class="navbar-brand" aria-label="Bootstrap" href="{% url 'sirobutton:home' %}">
 	シロボタン
       </a>
@@ -44,6 +44,11 @@
 	  <li class="nav-item">
 	    <a class="nav-link" href="{% url 'sirobutton:tags' %}">
 	      タグ一覧
+	    </a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="{% url 'sirobutton:detailed-search' %}">
+	      詳細検索
 	    </a>
 	  </li>
 	  <li class="nav-item">

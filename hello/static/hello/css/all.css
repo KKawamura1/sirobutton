@@ -98,6 +98,14 @@ div.video iframe{
     background-image: linear-gradient(to bottom, rgba(96, 220, 255, 0.8) 0%, rgba(50, 160, 200, 0.8) 100%);
 }
 
+.bg-blue-with-transparent {
+    background-color: rgba(90, 200, 250, 0.7);
+    border-color: #69c;
+    border-style: solid;
+    border-radius: 0.5em;
+    border-width: 1px;
+}
+
 /* text shadow */
 .text-shadow-dark {
     text-shadow: 0 0.03em 0 #333;
@@ -115,6 +123,7 @@ div.video iframe{
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
+    border-bottom: solid 1px #6ef;
 }
 
 /* button break-line */
@@ -149,4 +158,9 @@ form.inline-form .form-control {
 /* tag buttons */
 span.each-tag {
     display: inline-block;
+}
+
+/* form label */
+.form-group label.col-form-label {
+    white-space: nowrap;
 }
