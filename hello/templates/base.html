@@ -41,7 +41,7 @@
 	</span>
 	<img src="{% static 'hello/images/botan.png' %}" height="16px" alt="white botan">
       </a>
-      <div class="navbar-nav-scroll">
+      <div class="navbar-nav-scroll mr-1">
 	<ul class="navbar-nav frex-row">
 	  <li class="nav-item">
 	    <a class="nav-link" href="{% url 'sirobutton:home' %}">
@@ -64,6 +64,9 @@
 	    </a>
 	  </li>
 	</ul>
+      </div>
+      <div class="navbar-nav ml-auto mr-1">
+	<a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-text="シロボタンです" data-hashtags="シロボタン,SiroButton" data-url="{{ request.get_host }}{% url 'sirobutton:home' %}" data-related="SIROyoutuber" data-lang="ja" >Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </header>
 
