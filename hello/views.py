@@ -9,6 +9,7 @@ import urllib.parse
 import json
 from typing import List, Any, Dict
 from logging import getLogger
+import re
 
 from .models import Video, CaptionTrack, Subtitle, Tag
 
@@ -101,6 +102,7 @@ class SubtitleListView(generic.ListView):
         search_query = self.request.GET.get('search', '')
         search_targets = self._get_search_targets_from_query(search_query)
         if search_targets:
+            search_targets = [re.escape(search_target) for search_target in search_targets]
             regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
             yomi_search = result_qs.filter(yomi__regex=regex_query)
             if yomi_search.exists():
