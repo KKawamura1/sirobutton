@@ -268,6 +268,9 @@ class PostRemoveTagView(generic.View):
         # remove the tag
         try:
             subtitle.tags.remove(tag)
+            # also delete the tag if it has no associated subtitles
+            if not tag.subtitle_set.all().exists():
+                tag.delete()
             return JsonResponse(dict(removed=True, status_code=0,
                                      error_message='Success.',
                                      tag_title=tag.title))
