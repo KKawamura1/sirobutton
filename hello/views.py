@@ -10,7 +10,7 @@ import json
 from typing import List, Any, Dict
 from logging import getLogger
 
-from .models import Video, CaptionTrack, Subtitle
+from .models import Video, CaptionTrack, Subtitle, Tag
 
 
 logger = getLogger('__name__')
@@ -189,8 +189,29 @@ class SubtitleListView(generic.ListView):
 
 class PostAddTagView(generic.View):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # get data in POST request
         tag_title = request.POST.get('tag_title')
         subtitle_id = request.POST.get('subtitle_id')
+        # check tag title is not blank
+        if not tag_title:
+            return JsonResponse(dict(created=False, status_code=2,
+                                     error_message='The tag title is blank.'))
+        # make a tag with given info
+        tag_target = dict(title=tag_title)
+        tag, tag_created = Tag.objects.get_or_create(title=tag_title, defaults=tag_target)
+        # get the subtitle
         subtitle = get_object_or_404(Subtitle, id=subtitle_id)
-        response = {'tag_title': tag_title + '!!!' + subtitle.content}
-        return JsonResponse(response)
+        # check whether the tag is already in the subtitle
+        if subtitle.tags.all().filter(id__exact=tag.id).exists():
+            return JsonResponse(dict(created=False, status_code=1,
+                                     error_message='The tag is already in the subtitle.'))
+        # add it to the subtitle
+        try:
+            subtitle.tags.add(tag)
+            return JsonResponse(dict(created=True, status_code=0,
+                                     error_message='Success.',
+                                     tag_title=tag.title, tag_id=tag.id))
+        except Exception as ext:
+            error_message = 'Unexpected error is occurred. the error is: {}'.format(ext)
+            return JsonResponse(dict(created=False, status_code=-1,
+                                     error_message=error_message))

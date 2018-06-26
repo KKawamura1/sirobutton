@@ -20,9 +20,12 @@
   <dl class="m-2">
     <dt>タグ</dt>
     <dd>
-      {% for tag in subtitle.tags.all %}
-      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
-      {% endfor %}
+      <!-- show existing tags -->
+      <span id="tags-span">
+	{% for tag in subtitle.tags.all %}
+	<a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag.title }}">{{ tag.title }}</a>
+	{% endfor %}
+      </span>
       <!-- add new or existing tags -->
       <form id="add-tag-form" class="inline-form" action="{% url 'sirobutton:add-tag' %}" method="post">
 	{% csrf_token %}
@@ -32,8 +35,19 @@
 	    +
 	  </button>
 	</span>
+	<span class="hidden" id="subtitle_lists_url">{% url 'sirobutton:lists' %}</span>
 	<span class="hidden" id="subtitle_id">{{ subtitle.id }}</span>
       </form>
+      <!-- show errors -->
+      <button class="btn btn-danger hidden" type="button" id="error-show-button" data-toggle="collapse" data-target="#add-tag-error-collapse">
+	エラー
+      </button>
+      <div class="collapse" id="add-tag-error-collapse">
+	<div class="card card-body" id="add-tag-error-body">
+	  シロちゃんがかわいすぎます。
+	  （ここにエラー文が出るはずなので、この文がそのまま出たら製作者に報告してください。）
+	</div>
+      </div>
     </dd>
   </dl>
 
