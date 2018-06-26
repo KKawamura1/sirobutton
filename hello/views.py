@@ -36,6 +36,10 @@ class SubtitleDetailView(HitCountDetailView):
         return context
 
 
+class DetailedSearchView(generic.TemplateView):
+    template_name = 'detailed_search.html'
+
+
 class RedirectToYoutubeView(generic.View):
     url_base = 'https://www.youtube.com/watch'
 
@@ -197,8 +201,18 @@ class SubtitleListView(MyListViewWithPagination):
         # tag search
         tag_search_query_encoded = self.request.GET.get('tag', '')
         tag_search_query = urllib.parse.unquote(tag_search_query_encoded)
-        if tag_search_query:
-            result_qs = result_qs.filter(tags__title__exact=tag_search_query)
+        tag_search_targets = self._get_search_targets_from_query(tag_search_query)
+        if tag_search_targets:
+            for tag_search_target in tag_search_targets:
+                result_qs = result_qs.filter(tags__title__exact=tag_search_target)
+        # video search
+        video_search_query = self.request.GET.get('video', '')
+        video_search_targets = self._get_search_targets_from_query(video_search_query)
+        if video_search_targets:
+            video_search_targets = [re.escape(video_search_target)
+                                    for video_search_target in video_search_targets]
+            regex_query = r'.*{}.*'.format(r'.*'.join(video_search_targets))
+            result_qs = result_qs.filter(captiontrack__video__title__regex=regex_query)
         return result_qs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -206,7 +220,12 @@ class SubtitleListView(MyListViewWithPagination):
         search_query = self.request.GET.get('search', '')
         searches = self._get_search_targets_from_query(search_query)
         tag_query = self.request.GET.get('tag', '')
-        context.update(dict(search_query=search_query, searches=searches, tag_query=tag_query))
+        tag_searches = self._get_search_targets_from_query(tag_query)
+        video_query = self.request.GET.get('video', '')
+        video_searches = self._get_search_targets_from_query(video_query)
+        context.update(dict(search_query=search_query, searches=searches,
+                            tag_query=tag_query, tag_searches=tag_searches,
+                            video_query=video_query, video_searches=video_searches))
         return context
 
     def _get_search_targets_from_query(self, search_query: str) -> List[str]:
