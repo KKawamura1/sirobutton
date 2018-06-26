@@ -201,13 +201,14 @@ img.circle-img {
     display: block;
     padding: 0px;
     background-color: rgba(255, 255, 255, 1.0);
+    border-radius: 0.8em;
 }
 .btn-card .card {
     background-color: rgba(0, 0, 0, 0);
     border: none;
 }
 .btn-card:hover {
-    background-color: rgba(230, 250, 255, 0.8);
+    background-color: rgba(245, 252, 255, 0.95);
 }
 
 /* font size with responsive */
@@ -217,22 +218,7 @@ img.circle-img {
   }
 }
 @media (min-width: 576px) {
-  .h1-sm {
-    font-size: 2.5rem;
-  }
-}
-@media (min-width: 768px) {
-  .h1-md {
-    font-size: 2.5rem;
-  }
-}
-@media (min-width: 992px) {
-  .h4-lg {
-    font-size: 1.2rem;
-  }
-}
-@media (min-width: 1200px) {
-  .h2-xl {
+  .h2-sm {
     font-size: 2.0rem;
   }
 }
@@ -240,4 +226,11 @@ img.circle-img {
 /* other classes */
 .text-black {
     color: #111;
+}
+
+@media (min-width: 576px) {
+    .fix-width-sm {
+	width: 400px;
+	margin: auto;
+    }
 }
