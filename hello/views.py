@@ -6,8 +6,7 @@ from django.views import generic
 from hitcount.views import HitCountDetailView, HitCountMixin
 from hitcount.models import HitCount
 import urllib.parse
-import json
-from typing import List, Any, Dict
+from typing import List, Any, Dict, ClassVar
 from logging import getLogger
 import re
 
@@ -87,7 +86,82 @@ class RedirectToYoutubeView(generic.View):
             logger.info('hit count failed: {}'.format(hit_count_response))
 
 
-class SubtitleListView(generic.ListView):
+class MyListViewWithPagination(generic.ListView):
+    pages_around: ClassVar[int] = 1
+    pages_edge: ClassVar[int] = 2
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['pages'] = type(self)._get_pages(context)
+        return context
+
+    @classmethod
+    def _get_pages(cls, context: Dict[str, Any]) -> List[Dict[str, Any]]:
+        page_obj = context['page_obj']
+        page_number = page_obj.number
+        page_max = page_obj.paginator.num_pages
+
+        # [1, 2], [...], [5, 6, 7], [8], [9, 10, 11], [...] [14, 15]
+        # [edge] [elip] [around] [you_are_here] [around] [elip] [edge]
+
+        # left
+        rest_pages = page_number - 1
+        # left around
+        if rest_pages > 0:
+            num = min(cls.pages_around, rest_pages)
+            rest_pages -= num
+            left_around_pages = [dict(type='around-left', number=(page_number-page-1), link=True)
+                                 for page in range(num)][::-1]
+        else:
+            left_around_pages = []
+        # left edge
+        if rest_pages > 0:
+            num = min(cls.pages_edge, rest_pages)
+            rest_pages -= num
+            left_edge_pages = [dict(type='edge-left', number=(page+1), link=True)
+                               for page in range(num)]
+        else:
+            left_edge_pages = []
+        # left ellipsis
+        if rest_pages > 0:
+            left_ellip = [dict(type='ellip-left', link=False)]
+        else:
+            left_ellip = []
+
+        # right
+        rest_pages = page_max - page_number
+        # right around
+        if rest_pages > 0:
+            num = min(cls.pages_around, rest_pages)
+            rest_pages -= num
+            right_around_pages = [dict(type='around-right', number=(page_number+page+1), link=True)
+                                  for page in range(num)]
+        else:
+            right_around_pages = []
+        # right edge
+        if rest_pages > 0:
+            num = min(cls.pages_edge, rest_pages)
+            rest_pages -= num
+            right_edge_pages = [dict(type='edge-right', number=(page_max-page), link=True)
+                                for page in range(num)][::-1]
+        else:
+            right_edge_pages = []
+        # right ellipsis
+        if rest_pages > 0:
+            right_ellip = [dict(type='ellip-right', link=False)]
+        else:
+            right_ellip = []
+
+        # you_are_here
+        you_are_here = [dict(type='you_are_here', number=page_number, link=False)]
+
+        pages = (left_edge_pages + left_ellip + left_around_pages
+                 + you_are_here
+                 + right_around_pages + right_ellip + right_edge_pages)
+        return pages
+
+
+class SubtitleListView(MyListViewWithPagination):
     model = Subtitle
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
@@ -119,7 +193,6 @@ class SubtitleListView(generic.ListView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['pages'] = self._get_pages(context)
         search_query = self.request.GET.get('search', '')
         searches = self._get_search_targets_from_query(search_query)
         tag_query = self.request.GET.get('tag', '')
@@ -131,70 +204,6 @@ class SubtitleListView(generic.ListView):
         # remove invalid target
         search_targets = [search_target for search_target in search_targets if search_target]
         return search_targets
-
-    def _get_pages(self, context: Dict[str, Any]) -> List[Dict[str, Any]]:
-        page_obj = context['page_obj']
-        page_number = page_obj.number
-        page_max = page_obj.paginator.num_pages
-
-        # [1, 2], [...], [5, 6, 7], [8], [9, 10, 11], [...] [14, 15]
-        # [edge] [elip] [around] [you_are_here] [around] [elip] [edge]
-
-        # left
-        rest_pages = page_number - 1
-        # left around
-        if rest_pages > 0:
-            num = min(SubtitleListView.pages_around, rest_pages)
-            rest_pages -= num
-            left_around_pages = [dict(type='around-left', number=(page_number-page-1), link=True)
-                                 for page in range(num)][::-1]
-        else:
-            left_around_pages = []
-        # left edge
-        if rest_pages > 0:
-            num = min(SubtitleListView.pages_edge, rest_pages)
-            rest_pages -= num
-            left_edge_pages = [dict(type='edge-left', number=(page+1), link=True)
-                               for page in range(num)]
-        else:
-            left_edge_pages = []
-        # left ellipsis
-        if rest_pages > 0:
-            left_ellip = [dict(type='ellip-left', link=False)]
-        else:
-            left_ellip = []
-
-        # right
-        rest_pages = page_max - page_number
-        # right around
-        if rest_pages > 0:
-            num = min(SubtitleListView.pages_around, rest_pages)
-            rest_pages -= num
-            right_around_pages = [dict(type='around-right', number=(page_number+page+1), link=True)
-                                  for page in range(num)]
-        else:
-            right_around_pages = []
-        # right edge
-        if rest_pages > 0:
-            num = min(SubtitleListView.pages_edge, rest_pages)
-            rest_pages -= num
-            right_edge_pages = [dict(type='edge-right', number=(page_max-page), link=True)
-                                for page in range(num)][::-1]
-        else:
-            right_edge_pages = []
-        # right ellipsis
-        if rest_pages > 0:
-            right_ellip = [dict(type='ellip-right', link=False)]
-        else:
-            right_ellip = []
-
-        # you_are_here
-        you_are_here = [dict(type='you_are_here', number=page_number, link=False)]
-
-        pages = (left_edge_pages + left_ellip + left_around_pages
-                 + you_are_here
-                 + right_around_pages + right_ellip + right_edge_pages)
-        return pages
 
 
 class PostAddTagView(generic.View):
