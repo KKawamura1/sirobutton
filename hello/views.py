@@ -99,8 +99,8 @@ class SubtitleListView(generic.ListView):
         result_qs = super().get_queryset()
         # content search
         search_query = self.request.GET.get('search', '')
-        if search_query:
-            search_targets = search_query.split(' ')
+        search_targets = self._get_search_targets_from_query(search_query)
+        if search_targets:
             regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
             yomi_search = result_qs.filter(yomi__regex=regex_query)
             if yomi_search.exists():
@@ -117,10 +117,17 @@ class SubtitleListView(generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['pages'] = self._get_pages(context)
-        context['search_query'] = self.request.GET.get('search', '')
-        context['searches'] = context['search_query'].split(' ')
-        context['tag_query'] = self.request.GET.get('tag', '')
+        search_query = self.request.GET.get('search', '')
+        searches = self._get_search_targets_from_query(search_query)
+        tag_query = self.request.GET.get('tag', '')
+        context.update(dict(search_query=search_query, searches=searches, tag_query=tag_query))
         return context
+
+    def _get_search_targets_from_query(self, search_query: str) -> List[str]:
+        search_targets = search_query.split(' ')
+        # remove invalid target
+        search_targets = [search_target for search_target in search_targets if search_target]
+        return search_targets
 
     def _get_pages(self, context: Dict[str, Any]) -> List[Dict[str, Any]]:
         page_obj = context['page_obj']

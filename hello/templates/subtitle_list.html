@@ -16,10 +16,10 @@
     </div>
   </form>
 
-  {% if search_query or tag_query %}
+  {% if searches or tag_query %}
   <!-- search queries -->
   <div class="bg-white-transparent m-2 m-md-3 p-1 pr-1 pl-1 pr-md-2 pl-md-2">
-    {% if search_query %}
+    {% if searches %}
     <p class="m-1">
       検索ワード:
       {% for search in searches %}
