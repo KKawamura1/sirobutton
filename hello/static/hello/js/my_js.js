@@ -73,7 +73,7 @@ function add_tag_submit() {
 	    $('span#tags-span').append(
 		`
 <span id="tag-${ tag_id }" class="each-tag m-1">
- <a class="btn btn-tag btn-sm" role="button" href=${ lists_url }?tag=${ encodeURIComponent(tag_title) }>${ tag_title }</a>
+ <a class="btn btn-tag btn-with-break btn-sm" role="button" href=${ lists_url }?tag=${ encodeURIComponent(tag_title) }>${ tag_title }</a>
  <a class="tag-delete-button" href="#" role="button" onclick="return remove_tag('${ tag_id }', '${ tag_title }', '${ subtitle_id }', '${ remove_url }');">×</a>
 </span>
 `

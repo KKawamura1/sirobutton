@@ -23,14 +23,14 @@
     <p class="m-1">
       検索ワード:
       {% for search in searches %}
-      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search }}">{{ search }}</a>
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search }}">{{ search }}</a>
       {% endfor %}
     </p>
     {% endif %}
     {% if tag_query %}
     <p class="m-1">
       検索タグ:
-      <a class="btn btn-tag btn-sm m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_query }}">{{ tag_query }}</a>
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_query }}">{{ tag_query }}</a>
     </p>
     {% endif %}
     <p class="m-1">
