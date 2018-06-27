@@ -187,8 +187,8 @@ class SubtitleListView(MyListViewWithPagination):
     def get_queryset(self) -> Any:
         result_qs = super().get_queryset()
         # content search
-        search_query = self.request.GET.get('search', '')
-        search_targets = self._get_search_targets_from_query(search_query)
+        search_query_encoded = self.request.GET.get('search', '')
+        search_targets = self._get_search_targets_from_query(search_query_encoded)
         if search_targets:
             search_targets = [re.escape(search_target) for search_target in search_targets]
             regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
@@ -200,14 +200,13 @@ class SubtitleListView(MyListViewWithPagination):
                 result_qs = content_search
         # tag search
         tag_search_query_encoded = self.request.GET.get('tag', '')
-        tag_search_query = urllib.parse.unquote(tag_search_query_encoded)
-        tag_search_targets = self._get_search_targets_from_query(tag_search_query)
+        tag_search_targets = self._get_search_targets_from_query(tag_search_query_encoded)
         if tag_search_targets:
             for tag_search_target in tag_search_targets:
                 result_qs = result_qs.filter(tags__title__exact=tag_search_target)
         # video search
-        video_search_query = self.request.GET.get('video', '')
-        video_search_targets = self._get_search_targets_from_query(video_search_query)
+        video_search_query_encoded = self.request.GET.get('video', '')
+        video_search_targets = self._get_search_targets_from_query(video_search_query_encoded)
         if video_search_targets:
             video_search_targets = [re.escape(video_search_target)
                                     for video_search_target in video_search_targets]
@@ -217,18 +216,32 @@ class SubtitleListView(MyListViewWithPagination):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        search_query = self.request.GET.get('search', '')
-        searches = self._get_search_targets_from_query(search_query)
-        tag_query = self.request.GET.get('tag', '')
-        tag_searches = self._get_search_targets_from_query(tag_query)
-        video_query = self.request.GET.get('video', '')
-        video_searches = self._get_search_targets_from_query(video_query)
+        search_query_encoded = self.request.GET.get('search', '')
+        searches = self._get_search_targets_from_query(search_query_encoded)
+        tag_query_encoded = self.request.GET.get('tag', '')
+        tag_searches = self._get_search_targets_from_query(tag_query_encoded)
+        video_query_encoded = self.request.GET.get('video', '')
+        video_searches = self._get_search_targets_from_query(video_query_encoded)
+        search_query = urllib.parse.unquote(search_query_encoded)
+        tag_query = urllib.parse.unquote(tag_query_encoded)
+        video_query = urllib.parse.unquote(video_query_encoded)
+        if (len(searches), len(tag_searches), len(video_searches)) in {(1, 0, 0), (0, 1, 0)}:
+            if len(searches) == 1:
+                one_search_data = dict(one=True, query_name='search',
+                                       target=searches[0], query_repr='検索ワード: ')
+            else:
+                one_search_data = dict(one=True, query_name='tag',
+                                       target=tag_searches[0], query_repr='検索タグ: ')
+        else:
+            one_search_data = dict(one=False)
         context.update(dict(search_query=search_query, searches=searches,
                             tag_query=tag_query, tag_searches=tag_searches,
-                            video_query=video_query, video_searches=video_searches))
+                            video_query=video_query, video_searches=video_searches,
+                            one_search_data=one_search_data))
         return context
 
-    def _get_search_targets_from_query(self, search_query: str) -> List[str]:
+    def _get_search_targets_from_query(self, search_query_encoded: str) -> List[str]:
+        search_query = urllib.parse.unquote(search_query_encoded)
         search_targets = search_query.split(' ')
         # remove invalid target
         search_targets = [search_target for search_target in search_targets if search_target]

@@ -5,7 +5,7 @@
 
 <div class="container col-12 col-sm-11 col-md-10 col-lg-9">
   <!-- search box -->
-  <form method="get" class="row m-0">
+  <form method="get" class="row m-0" enctype="application/x-www-form-urlencoded">
     <div class="input-group p-2 p-md-3">
       <input type="search" name="search" class="search-query form-control" placeholder="Search..." value="{{ search_query }}">
       <span class="input-group-btn">
@@ -25,7 +25,7 @@
 	検索ワード:
       </span>
       {% for search in searches %}
-      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search }}">{{ search }}</a>
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?search={{ search | urlencode }}">{{ search }}</a>
       {% endfor %}
     </p>
     {% endif %}
@@ -35,7 +35,7 @@
 	検索タグ:
       </span>
       {% for tag_search in tag_searches %}
-      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_search }}">{{ tag_search }}</a>
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ tag_search | urlencode }}">{{ tag_search }}</a>
       {% endfor %}
     </p>
     {% endif %}
@@ -45,13 +45,18 @@
 	動画検索:
       </span>
       {% for video_search in video_searches %}
-      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?tag={{ video_search }}">{{ video_search }}</a>
+      <a class="btn btn-tag btn-sm btn-with-break m-1" role="button" href="{% url 'sirobutton:lists' %}?video={{ video_search | urlencode }}">{{ video_search }}</a>
       {% endfor %}
     </p>
     {% endif %}
     <p class="m-1 mt-3 mb-2 text-blue-shadow">
       検索結果: {{ page_obj.paginator.count }} 件
     </p>
+    {% if one_search_data.one %}
+    <div class="m-1">
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-text="{{ one_search_data.query_repr }}{{ one_search_data.target }} （検索結果: {{ page_obj.paginator.count }}件）" data-hashtags="SiroButton,SiroTalk" data-url="{{ request.get_host }}{% url 'sirobutton:lists' %}?{{ one_search_data.target | urlencode }}" data-related="SIROyoutuber" data-lang="ja" >Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    {% endif %}
   </div>
   {% endif %}
 
