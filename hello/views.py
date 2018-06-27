@@ -10,6 +10,7 @@ from typing import List, Any, Dict, ClassVar
 from logging import getLogger
 import re
 
+from .miscs import re_escape
 from .models import Video, CaptionTrack, Subtitle, Tag
 
 
@@ -194,7 +195,7 @@ class SubtitleListView(MyListViewWithPagination):
         search_query_encoded = self.request.GET.get('search', '')
         search_targets = self._get_search_targets_from_query(search_query_encoded)
         if search_targets:
-            search_targets = [re.escape(search_target) for search_target in search_targets]
+            search_targets = [re_escape(search_target) for search_target in search_targets]
             regex_query = r'.*{}.*'.format(r'.*'.join(search_targets))
             yomi_search = result_qs.filter(yomi__regex=regex_query)
             if yomi_search.exists():
@@ -212,7 +213,7 @@ class SubtitleListView(MyListViewWithPagination):
         video_search_query_encoded = self.request.GET.get('video', '')
         video_search_targets = self._get_search_targets_from_query(video_search_query_encoded)
         if video_search_targets:
-            video_search_targets = [re.escape(video_search_target)
+            video_search_targets = [re_escape(video_search_target)
                                     for video_search_target in video_search_targets]
             regex_query = r'.*{}.*'.format(r'.*'.join(video_search_targets))
             result_qs = result_qs.filter(captiontrack__video__title__regex=regex_query)
