@@ -1,4 +1,4 @@
-# Sirobutton
+Sirobutton
 ====
 
 Sirobutton is a web application with which you can search and listen a Siro-chan's voice from all subtitles.
