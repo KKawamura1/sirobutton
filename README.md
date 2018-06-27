@@ -10,7 +10,7 @@ see [sirobutton.herokuapp](https://sirobutton.herokuapp.com/) for more details.
 ## How to add subtitles to the db
 
 1. Use [get-youtube-captions](https://github.com/KKawamura1/get-youtube-captions) to dump the pkl binary data (say a.pkl).
-2. Run `python manage.py update_database < a.pkl`.
+2. Run `python manage.py update_database a.pkl`.
 3. And that's all!
 
 ## Author
