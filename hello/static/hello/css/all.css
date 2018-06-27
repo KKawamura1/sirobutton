@@ -216,6 +216,28 @@ img.circle-img {
     background-color: rgba(245, 252, 255, 0.85);
 }
 
+/* sirobutton logo */
+.sirobutton-logo {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+.sirobutton-logo * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.sirobutton-logo img {
+    max-width: 48px;
+    height: auto;
+}
+
+/* jumbotron color */
+.my-jumbotron {
+    background-image: linear-gradient(to bottom, #dafaff 0%, #caeafa 100%);
+}
+
 /* font size with responsive */
 @media (min-width: 400px) {
   .h3-xs {
@@ -243,20 +265,4 @@ img.circle-img {
 	width: 400px;
 	margin: auto;
     }
-}
-
-.sirobutton-logo {
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    justify-content: center;
-    align-items: center;
-}
-.sirobutton-logo * {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-.sirobutton-logo img {
-    max-width: 48px;
-    height: auto;
 }
