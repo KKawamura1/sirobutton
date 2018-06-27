@@ -40,6 +40,10 @@ class DetailedSearchView(generic.TemplateView):
     template_name = 'detailed_search.html'
 
 
+class AboutThisView(generic.TemplateView):
+    template_name = 'about_this.html'
+
+
 class RedirectToYoutubeView(generic.View):
     url_base = 'https://www.youtube.com/watch'
 
