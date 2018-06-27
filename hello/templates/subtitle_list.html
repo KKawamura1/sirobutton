@@ -54,7 +54,7 @@
     </p>
     {% if one_search_data.one %}
     <div class="m-1">
-      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-text="{{ one_search_data.query_repr }}{{ one_search_data.target }} （検索結果: {{ page_obj.paginator.count }}件）" data-hashtags="SiroButton,SiroTalk" data-url="{{ request.get_host }}{% url 'sirobutton:lists' %}?{{ one_search_data.target | urlencode }}" data-related="SIROyoutuber" data-lang="ja" >Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-text="{{ one_search_data.query_repr }}{{ one_search_data.target }} （検索結果: {{ page_obj.paginator.count }}件）" data-hashtags="SiroButton,SiroTalk" data-url="https://{{ request.get_host }}{% url 'sirobutton:lists' %}?{{ one_search_data.target | urlencode }}" data-related="SIROyoutuber" data-lang="ja" >Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
     {% endif %}
   </div>
