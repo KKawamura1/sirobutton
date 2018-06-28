@@ -339,7 +339,7 @@ class OEmbedView(generic.View):
         width = 540
         height = 160
         html = f"""
-        <div style="width:{width}px; height:{height}px; border:1px solid; font-weight:bold; overflow:hidden; background-image:linear-gradient(to bottom, #dfffff 0%, #caeafa 100%);">
+        <div style="width:{width}px; height:{height}px; border:1px solid rgba(0, 30, 70, 0.2); font-weight:bold; overflow:hidden; background-image:linear-gradient(to bottom, #dfffff 0%, #caeafa 100%); font-family: Roboto, Arial, sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Helvetica Neue\", \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" ">
           <div style="display:flex; margin-right: auto; margin-left: auto; justify-content: center; align-items: center;">
             <img src="{botan_url}" style="max-width: 36px; height: auto; margin-top: auto; margin-bottom: auto; vertical-align: middle; border-style: none;" alt="white botan">
             <h1 style="font-size: 2.4em; margin-top: auto; margin-bottom: auto; text-shadow: 0px 0.5px 2px #cff">
