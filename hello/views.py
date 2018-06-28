@@ -319,4 +319,60 @@ class PostRemoveTagView(generic.View):
 
 
 class OEmbedView(generic.View):
-    pass
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """return oEmbed structured data
+
+        see: https://oembed.com/
+        """
+        format_type = request.GET.get('format', '')
+        if format_type not in set(['json', 'xml']):
+            format_type = 'json'
+
+        data_type = 'rich'
+        title = "シロボタン"
+        author_name = "KRiver1"
+        author_url = "https://twitter.com/KRiver1"
+        # thumbnail_url = 'https://{}{}'.format(request.get_host(),
+        #                                       static('hello/images/botan.png'))
+        botan_url = 'https://{}{}'.format(request.get_host(),
+                                          static('hello/images/botan.png'))
+        html = f"""
+        <div style="width:100%; height:120px; border:1px solid; font-weight:bold; overflow:hidden; background-image:linear-gradient(to bottom, #dafaff 0%, #caeafa 100%);">
+          <div style="display:flex; margin-right: auto; margin-left: auto; justify-content: center; align-items: center;">
+            <img src="{botan_url}" style="max-width: 36px; height: auto; margin-top: auto; margin-bottom: auto; vertical-align: middle; border-style: none;" alt="white botan">
+            <h1 style="font-size: 3.6em; margin-top: auto; margin-bottom: auto; text-shadow: 0px 0.5px 2px #cff">
+              シロボタン
+            </h1>
+            <img src="{botan_url}" style="max-width: 36px; height: auto; margin-top: auto; margin-bottom: auto; vertical-align: middle; border-style: none;" alt="white botan">
+          </div>
+          <hr style="margin-bottom: 1.5rem; margin-top: 1.5rem; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); box-sizing: content-box; height: 0; overflow: visible;">
+          <p style="font-size: 1.25rem; font-weight: 300; margin-top: 0; margin-bottom: 1rem;">
+            <span style="text-shadow: 0px 0.5px 2px #cff">シロボタン</span>は、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。
+          </p>
+        </div>
+        """.format(img_url=botan_url)
+        width = 480
+        height = 120
+        data = dict(type=data_type, version=1.0, title=title,
+                    author_name=author_name, author_url=author_url,
+                    provider_name=author_name, provider_url=author_url,
+                    width=width, height=height, html=html)
+        if format_type == 'json':
+            return JsonResponse(data)
+        else:
+            xml_data = f"""
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <oembed>
+              <type>{data_type}</type>
+              <version>1.0</version>
+              <title>{title}</title>
+              <author_name>{author_name}</author_name>
+              <author_url>{author_url}</author_url>
+              <provider_name>{author_name}</provider_name>
+              <provider_url>{author_url}</provider_url>
+              <width>{width}</width>
+              <height>{height}</height>
+              <html>{html}</html>
+            </oembed>
+            """
+            return HttpResponse(xml_data, content_type="application/xml", charset="UTF-8")
