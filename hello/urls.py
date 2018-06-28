@@ -14,4 +14,5 @@ urlpatterns = [
          name='jump-to-youtube'),
     path('api/v1/post-add-tag/', hello.views.PostAddTagView.as_view(), name='add-tag'),
     path('api/v1/post-remove-tag/', hello.views.PostRemoveTagView.as_view(), name='remove-tag'),
+    path('api/v1/oembed/', hello.views.OEmbedView.as_view(), name='oembed'),
 ]

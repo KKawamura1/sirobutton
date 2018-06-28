@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.http import HttpResponseRedirect, HttpResponseGone, HttpResponsePermanentRedirect
 from django.http import JsonResponse
 from django.views import generic
+from django.templatetags.static import static
 from hitcount.views import HitCountDetailView, HitCountMixin
 from hitcount.models import HitCount
 import urllib.parse
@@ -315,3 +316,7 @@ class PostRemoveTagView(generic.View):
             error_message = 'Unexpected error is occurred. the error is: {}'.format(ext)
             return JsonResponse(dict(removed=False, status_code=-1,
                                      error_message=error_message))
+
+
+class OEmbedView(generic.View):
+    pass
