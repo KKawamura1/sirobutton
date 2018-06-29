@@ -4,7 +4,7 @@
 <ul class="pagination justify-content-center" id="pagination-bar">
   {% if page_obj.has_previous %}
   <li class="page-item">
-    <a class="page-link" aria-label="Previous" href="{% url url_param %}?{% url_replace request 'page' page_obj.previous_page_number %}">
+    <a class="page-link" aria-label="Previous" href="{% url url_param %}?{% url_replace request 'page' page_obj.previous_page_number %}" rel="prev">
   {% else %}
   <li class="page-item disabled">
     <a class="page-link" aria-label="Previous" href="#">
@@ -31,7 +31,7 @@
 
   {% if page_obj.has_next %}
   <li class="page-item">
-    <a class="page-link" aria-label="Next" href="{% url url_param %}?{% url_replace request 'page' page_obj.next_page_number %}">
+    <a class="page-link" aria-label="Next" href="{% url url_param %}?{% url_replace request 'page' page_obj.next_page_number %}" rel="next">
   {% else %}
   <li class="page-item disabled">
     <a class="page-link" aria-label="Next" href="#">
