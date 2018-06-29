@@ -18,7 +18,7 @@
 
 <div class="container bg-white-transparent col-11 col-lg-8 p-3 p-md-5">
   {% if subtitle %}
-  <h1 class="h1 m-2 text-blue-shadow">
+  <h1 class="h1 m-2 text-blue-shadow" id="subtitle-content">
     {{ subtitle.content }}
   </h1>
   <!-- embed video -->
@@ -30,7 +30,7 @@
     </iframe>
   </div>
 
-  <div class="m-1">
+  <div class="m-1" id="share-with-subtitle">
     <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-text="{{ subtitle.content }}" data-hashtags="SiroButton,SiroTalk" data-url="https://{{ request.get_host }}{% url 'sirobutton:subtitle-detail' subtitle.id %}" data-related="SIROyoutuber" data-lang="ja" >Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 

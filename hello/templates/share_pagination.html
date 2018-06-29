@@ -1,7 +1,7 @@
 {% load extra %}
 
 {% if is_paginated %}
-<ul class="pagination justify-content-center">
+<ul class="pagination justify-content-center" id="pagination-bar">
   {% if page_obj.has_previous %}
   <li class="page-item">
     <a class="page-link" aria-label="Previous" href="{% url url_param %}?{% url_replace request 'page' page_obj.previous_page_number %}">
