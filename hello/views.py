@@ -177,8 +177,8 @@ class TagListView(MyListViewWithPagination):
     template_name = 'tag_list.html'
     paginate_by = 50
     ordering = ['-created_at']
-    pages_around = 1
-    pages_edge = 2
+    pages_around: ClassVar[int] = 1
+    pages_edge: ClassVar[int] = 2
 
 
 class SubtitleListView(MyListViewWithPagination):
@@ -187,8 +187,8 @@ class SubtitleListView(MyListViewWithPagination):
     template_name = 'subtitle_list.html'
     paginate_by = 100
     ordering = ['hit_count_generic__hits', '-captiontrack__video__published', 'begin']
-    pages_around = 1
-    pages_edge = 2
+    pages_around: ClassVar[int] = 1
+    pages_edge: ClassVar[int] = 2
 
     def get_queryset(self) -> Any:
         result_qs = super().get_queryset()
