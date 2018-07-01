@@ -231,13 +231,19 @@ class SubtitleListView(MyListViewWithPagination):
         search_query = urllib.parse.unquote(search_query_encoded)
         tag_query = urllib.parse.unquote(tag_query_encoded)
         video_query = urllib.parse.unquote(video_query_encoded)
-        if (len(searches), len(tag_searches), len(video_searches)) in {(1, 0, 0), (0, 1, 0)}:
+        if ((len(searches), len(tag_searches), len(video_searches))
+                in {(1, 0, 0), (0, 1, 0), (0, 0, 1)}):
             if len(searches) == 1:
                 one_search_data = dict(one=True, query_name='search',
                                        target=searches[0], query_repr='検索ワード: ')
-            else:
+            elif len(tag_searches) == 1:
                 one_search_data = dict(one=True, query_name='tag',
                                        target=tag_searches[0], query_repr='検索タグ: ')
+            elif len(video_searches) == 1:
+                one_search_data = dict(one=True, query_name='video',
+                                       target=video_searches[0], query_repr='検索動画: ')
+            else:
+                assert False
         else:
             one_search_data = dict(one=False)
         context.update(dict(search_query=search_query, searches=searches,
