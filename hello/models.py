@@ -43,6 +43,8 @@ class Subtitle(models.Model, HitCountMixin):
     short_title = models.CharField('short version of caption content', max_length=50)
     yomi = models.CharField('hiragana yomi for the content', max_length=500)
     last_updated = models.DateTimeField('last modified time', auto_now=True)
+    # enable flag (disable if it was on the old caption track but not in the new)
+    enable = models.BooleanField('enable flag', default=True)
     # see: http://django-hitcount.readthedocs.io/en/latest/installation.html#models
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
                                         related_query_name='hit_count_generic_relation')
