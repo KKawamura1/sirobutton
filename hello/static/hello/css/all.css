@@ -259,7 +259,7 @@ img.circle-img {
   hidden div for non-overlap link with a sticky bar
   See the bootstrap documentation page for more details.
 */
-*[id]:not(.without-hidden-div)::before {
+.with-hidden-div[id]::before {
     display: block;
     height: 6rem;
     margin-top: -6rem;
