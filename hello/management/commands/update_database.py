@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.contrib.sitemaps import ping_google
 from logging import getLogger, Logger, basicConfig
 import logging as logging_
 from typing import Any
@@ -41,3 +42,11 @@ class Command(BaseCommand):
         logger = getLogger('__name__')
         entry = add_captions_to_database.AddCaptionsToDatabase(logger.getChild('AddCaptions'))
         entry.do(input_data)
+
+        # tell my google that our sitemap is updated
+        try:
+            ping_google('/sitemap.xml')
+        except Exception as exc:
+            # there are many possible Http exceptions
+            logger.error(str(exc))
+            pass
