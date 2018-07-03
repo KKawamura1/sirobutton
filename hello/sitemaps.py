@@ -12,6 +12,7 @@ QuerySet = Any
 class SubtitleSitemap(Sitemap):
     changefreq = 'never'
     priority = 0.5
+    limit = 10000
 
     def items(self) -> QuerySet:
         return Subtitle.objects.filter(enable=True)
@@ -25,7 +26,7 @@ class StaticSitemap(Sitemap):
     changefreq = 'daily'
 
     def items(self) -> List[str]:
-        return ['home', 'lists', 'subtitle-detail', 'tags', 'detailed-search', 'about-this']
+        return ['home', 'lists', 'tags', 'detailed-search', 'about-this']
 
     def location(self, item: str) -> str:
-        return reverse(item)
+        return reverse('sirobutton:{}'.format(item))
