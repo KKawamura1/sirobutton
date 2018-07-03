@@ -25,7 +25,7 @@ class AddCaptionsToDatabase:
                                 parent_caption_track='captiontrack')
         video_identities = set(['video_id'])
         caption_track_identities = set(['caption_id'])
-        subtitle_identities = set(['content'])
+        subtitle_identities = set(['content', 'begin', 'end', 'parent_caption_track'])
 
         for video_datum in tqdm(input_data):
             # video
@@ -40,11 +40,15 @@ class AddCaptionsToDatabase:
                                                                      caption_track_assigns)
             # subtitle (a.k.a. caption)
             captions = video_datum['augmented_captions']
+            # temporary disable captions in the video
+            Subtitle.objects.filter(captiontrack__video=video_item).update(enable=False)
             for caption in captions:
                 caption['parent_caption_track'] = caption_track_item
-                self._create_or_update_if_necessary(Subtitle, caption,
-                                                    subtitle_identities,
-                                                    subtitle_assigns)
+                caption_item = self._create_or_update_if_necessary(Subtitle, caption,
+                                                                   subtitle_identities,
+                                                                   subtitle_assigns)
+                caption_item.enable = True
+                caption_item.save()
 
     def _create_or_update_if_necessary(
             self,
@@ -53,24 +57,38 @@ class AddCaptionsToDatabase:
             require_keys: AbstractSet[str],
             data_to_object_assignment: Mapping[str, str],
     ) -> Any:
-        """call get_or_create_func, update the item if necessary, and return it"""
+        """call get_or_create_func, update the item if necessary, and return it
 
+        data_dict: A mapping object that maps data_keys to data_vals.
+            Data_vals are from youtube captions.
+        require_keys: A set that contains data_keys you need to identify the django
+            model object.
+        data_to_object_assignment: A map that maps data_keys to django-object's keys
+        """
+
+        # defaults: django_keys |-> data_vals
         defaults = {val: data_dict[key] for key, val in data_to_object_assignment.items()}
+        # identities: django_keys |-> data_vals
         identities = {data_to_object_assignment[key]: data_dict[key] for key in require_keys}
         item, newly_created = model.objects.get_or_create(defaults=defaults, **identities)
-        if not newly_created:
-            updated = False
+        # check if it is frozen
+        if getattr(item, 'frozen', False):
+            self._logger.debug('item {} is not updated since it is frozen'.format(item))
+            return item
+        # check if it requires updates
+        if newly_created:
+            self._logger.debug('item {} is newly created.'.format(item))
+        else:
+            updated_keys = []
             # check the necessity for update
             for key, val in defaults.items():
                 if getattr(item, key, None) != val:
                     setattr(item, key, val)
-                    updated = True
-            if updated:
+                    updated_keys.append(key)
+            if updated_keys:
                 # do update
-                item.save()
+                item.save(update_fields=updated_keys)
                 self._logger.debug('item {} updated'.format(item))
             else:
                 self._logger.debug('item {} is not updated since not required'.format(item))
-        else:
-            self._logger.debug('item {} is not created since it exists'.format(item))
         return item
