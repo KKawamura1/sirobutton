@@ -5,6 +5,7 @@ from pathlib import Path
 import pickle
 from tqdm import tqdm
 
+from hitcount.models import HitCount
 from hello.models import Video, CaptionTrack, Subtitle
 from add_captions_to_database.data import Data
 
@@ -30,25 +31,29 @@ class AddCaptionsToDatabase:
         for video_datum in tqdm(input_data):
             # video
             video_info = video_datum['video_info']
-            video_item = self._create_or_update_if_necessary(Video, video_info,
-                                                             video_identities, video_assigns)
+            video_item, _ = self._create_or_update_if_necessary(Video, video_info,
+                                                                video_identities,
+                                                                video_assigns)
             # caption track
             caption_info = video_datum['caption_info']
             caption_info['parent_video'] = video_item
-            caption_track_item = self._create_or_update_if_necessary(CaptionTrack, caption_info,
-                                                                     caption_track_identities,
-                                                                     caption_track_assigns)
+            caption_track_item, _ = self._create_or_update_if_necessary(CaptionTrack, caption_info,
+                                                                        caption_track_identities,
+                                                                        caption_track_assigns)
             # subtitle (a.k.a. caption)
             captions = video_datum['augmented_captions']
             # temporary disable captions in the video
             Subtitle.objects.filter(captiontrack__video=video_item).update(enable=False)
             for caption in captions:
                 caption['parent_caption_track'] = caption_track_item
-                caption_item = self._create_or_update_if_necessary(Subtitle, caption,
-                                                                   subtitle_identities,
-                                                                   subtitle_assigns)
-                caption_item.enable = True
-                caption_item.save()
+                caption['enable'] = True
+                subtitle_assigns['enable'] = 'enable'
+                caption_item, created = self._create_or_update_if_necessary(Subtitle, caption,
+                                                                            subtitle_identities,
+                                                                            subtitle_assigns)
+                if created:
+                    # black magic to create an associated count-hit object
+                    _ = HitCount.objects.get_for_object(caption_item)
 
     def _create_or_update_if_necessary(
             self,
@@ -56,7 +61,7 @@ class AddCaptionsToDatabase:
             data_dict: Mapping[str, Any],
             require_keys: AbstractSet[str],
             data_to_object_assignment: Mapping[str, str],
-    ) -> Any:
+    ) -> Tuple[Any, bool]:
         """call get_or_create_func, update the item if necessary, and return it
 
         data_dict: A mapping object that maps data_keys to data_vals.
@@ -74,7 +79,7 @@ class AddCaptionsToDatabase:
         # check if it is frozen
         if getattr(item, 'frozen', False):
             self._logger.debug('item {} is not updated since it is frozen'.format(item))
-            return item
+            return item, newly_created
         # check if it requires updates
         if newly_created:
             self._logger.debug('item {} is newly created.'.format(item))
@@ -91,4 +96,4 @@ class AddCaptionsToDatabase:
                 self._logger.debug('item {} updated'.format(item))
             else:
                 self._logger.debug('item {} is not updated since not required'.format(item))
-        return item
+        return item, newly_created
