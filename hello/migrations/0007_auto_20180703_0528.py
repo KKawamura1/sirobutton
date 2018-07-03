@@ -3,6 +3,17 @@
 from django.db import migrations, models
 
 
+def make_site_settings(apps, schema_editor):
+    # Like `from sirobutton import Site`
+    Site = apps.get_model('sirobutton', 'Site')
+
+    site_id = 1
+    domain = 'sirobutton.herokuapp.com'
+    name = 'sirobutton'
+    defaluts = dict(domain=domain, name=name)
+    Site.objects.update_or_create(id=site_id, defaults=defaluts)
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -20,4 +31,5 @@ class Migration(migrations.Migration):
             name='frozen',
             field=models.BooleanField(default=False, verbose_name='frozen flag'),
         ),
+        migrations.RunPython(make_site_settings),
     ]
