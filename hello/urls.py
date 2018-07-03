@@ -1,8 +1,16 @@
 from django.urls import path
+from django.contrib.sitemaps.views import sitemap
 
 import hello.views
+from hello.sitemaps import SubtitleSitemap, StaticSitemap
 
 app_name = 'sirobutton'
+
+sitemaps = {
+    'subtitles': SubtitleSitemap,
+    'static': StaticSitemap,
+}
+
 urlpatterns = [
     path('', hello.views.SubtitleListView.as_view(), name='home'),
     path('lists/', hello.views.SubtitleListView.as_view(), name='lists'),

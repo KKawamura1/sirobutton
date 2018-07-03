@@ -43,7 +43,8 @@ class AddCaptionsToDatabase:
             # subtitle (a.k.a. caption)
             captions = video_datum['augmented_captions']
             # temporary disable captions in the video
-            Subtitle.objects.filter(captiontrack__video=video_item).update(enable=False)
+            Subtitle.objects.filter(captiontrack__video=video_item,
+                                    frozen=False).update(enable=False)
             for caption in captions:
                 caption['parent_caption_track'] = caption_track_item
                 caption['enable'] = True
