@@ -60,4 +60,4 @@ class Subtitle(models.Model, HitCountMixin):
         return '<Subtitle: {}>'.format(self.content)
 
     def get_absolute_url(self) -> str:
-        return reverse('sirobutton:subtitle-detail', self.pk)
+        return reverse('sirobutton:subtitle-detail', args=[self.pk])
