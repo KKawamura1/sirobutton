@@ -132,7 +132,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-django_heroku.settings(locals())
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 db_from_env['OPTIONS'] = {'sslmode': 'allow'}
@@ -144,3 +143,13 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2,
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+# Enable sites framework
+# See: https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
+
+SITE_ID = 1
+
+
+# Apply all settings
+
+django_heroku.settings(locals())
