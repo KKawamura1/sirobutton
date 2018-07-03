@@ -187,7 +187,7 @@ class SubtitleListView(MyListViewWithPagination):
     template_name = 'subtitle_list.html'
     paginate_by = 100
     queryset = Subtitle.objects.filter(enable=True)
-    ordering_ = ['-captiontrack__video__published', 'begin']  # without hit_count_generic__hits
+    ordering = ['-hit_count_generic__hits', '-captiontrack__video__published', 'begin']
     pages_around: ClassVar[int] = 1
     pages_edge: ClassVar[int] = 2
 
@@ -222,15 +222,8 @@ class SubtitleListView(MyListViewWithPagination):
                                     for video_search_target in video_search_targets]
             regex_query = r'.*{}.*'.format(r'.*'.join(video_search_targets))
             result_qs = result_qs.filter(captiontrack__video__title__regex=regex_query)
-        # ordering
-        # Seems weird because hit_count_generic manager object has no hits variable
-        # until it gets the first hit, and it jams hits-based ordering.
-        result_with_at_least_one_hit = result_qs.filter(hit_count_generic__hits__gt=0)
-        result_with_zero = result_qs.exclude(pk__in=result_with_at_least_one_hit)
-        orders = type(self).ordering_
-        result_qs_1 = result_with_at_least_one_hit.order_by('-hit_count_generic__hits', *orders)
-        result_qs_2 = result_with_zero.order_by(*orders)
-        return list(result_qs_1) + list(result_qs_2)
+
+        return result_qs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
