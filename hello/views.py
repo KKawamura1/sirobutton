@@ -186,6 +186,7 @@ class SubtitleListView(MyListViewWithPagination):
     context_object_name = 'subtitles'
     template_name = 'subtitle_list.html'
     paginate_by = 100
+    queryset = Subtitle.objects.filter(enable=True)
     ordering = ['hit_count_generic__hits', '-captiontrack__video__published', 'begin']
     pages_around: ClassVar[int] = 1
     pages_edge: ClassVar[int] = 2
