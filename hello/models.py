@@ -1,6 +1,8 @@
 from typing import Any
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
+from django.urls import reverse
+
 from hitcount.models import HitCount, HitCountMixin
 
 
@@ -56,3 +58,6 @@ class Subtitle(models.Model, HitCountMixin):
 
     def __str__(self) -> str:
         return '<Subtitle: {}>'.format(self.content)
+
+    def get_absolute_url(self) -> str:
+        return reverse('sirobutton:subtitle-detail', self.pk)
