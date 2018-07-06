@@ -2,14 +2,10 @@
 {% load staticfiles %}
 
 {% block title %}{% if subtitle %}{{ subtitle.content }} - シロボタン{% else %}シロボタン{% endif %}{% endblock %}
+{% block title-og %}{% if subtitle %}{{ subtitle.content }} - シロボタン{% else %}シロボタン{% endif %}{% endblock %}
 
-{% block description %}
-{% if subtitle %}
-シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。字幕タイトル: {{ subtitle.content }}
-{% else %}
-シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。
-{% endif %}
-{% endblock %}
+{% block description %}{% if subtitle %}シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。字幕タイトル: {{ subtitle.content }}{% else %}シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。{% endif %}{% endblock %}
+{% block description-og %}{% if subtitle %}シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。字幕タイトル: {{ subtitle.content }}{% else %}シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。{% endif %}{% endblock %}
 
 {% block content %}
 

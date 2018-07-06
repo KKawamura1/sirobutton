@@ -64,8 +64,8 @@
     <meta name="twitter:site" content="@KRiver1" />
     <!-- SNS-common settings -->
     <meta property="og:url" content="{{ request.build_absolute_uri|urlencode }}" />
-    <meta property="og:title" content="{% block title %}{% endblock %}" />
-    <meta property="og:description" content="{% block description %}{% endblock %}" />
+    <meta property="og:title" content="{% block title-og %}{% endblock %}" />
+    <meta property="og:description" content="{% block description-og %}{% endblock %}" />
     <meta property="og:image" content="{% static 'hello/images/sns_card.png' %}" />
 
   </head>
