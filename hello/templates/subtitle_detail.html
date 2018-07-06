@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block metatags %}
+{% block title %}{% if subtitle %}{{ subtitle.content }} - シロボタン{% else %}シロボタン{% endif %}{% endblock %}
 
+{% block description %}
 {% if subtitle %}
-<title>{{ subtitle.content }} - シロボタン</title>
-<meta name="description" content="シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。字幕タイトル: {{ subtitle.content }}" />
+シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。字幕タイトル: {{ subtitle.content }}
 {% else %}
-<title>シロボタン</title>
-<meta name="description" content="シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。" />
+シロボタンは、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。
 {% endif %}
-
 {% endblock %}
-
 
 {% block content %}
 

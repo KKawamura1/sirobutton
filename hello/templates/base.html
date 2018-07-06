@@ -16,7 +16,10 @@
       gtag('config', 'UA-118877014-2');
     </script>
 
-    {% block metatags %} {% endblock %}
+    <!-- title and description -->
+    
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
 
     <!-- oEmbed discovery -->
     <!-- See: https://oembed.com/ -->
@@ -55,6 +58,16 @@
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{% static 'hello/images/botan_with_back.png' %}" type="image/png">
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@KRiver1" />
+    <!-- SNS-common settings -->
+    <meta property="og:url" content="{{ request.build_absolute_uri|urlencode }}" />
+    <meta property="og:title" content="{% block title %}{% endblock %}" />
+    <meta property="og:description" content="{% block description %}{% endblock %}" />
+    <meta property="og:image" content="{% static 'hello/images/sns_card.png' %}" />
+
   </head>
   <body>
     <header class="navbar navbar-expand navbar-light bg-top-nav sticky-top pr-0" id="sticky-top-navbar">
