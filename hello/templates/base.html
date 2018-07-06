@@ -66,7 +66,7 @@
     <meta property="og:url" content="{{ request.build_absolute_uri|urlencode }}" />
     <meta property="og:title" content="{% block title-og %}{% endblock %}" />
     <meta property="og:description" content="{% block description-og %}{% endblock %}" />
-    <meta property="og:image" content="{% static 'hello/images/sns_card.png' %}" />
+    <meta property="og:image" content="https://{{ request.get_host }}{% static 'hello/images/sns_card.png' %}" />
 
   </head>
   <body>
