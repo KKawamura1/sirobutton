@@ -16,200 +16,232 @@
     <!-- main contents -->
     <div class="jumbotron jumbotron-fluid mb-5 my-jumbotron">
       <div class="container">
-	<div class="sirobutton-logo">
-	  <img src="{% static 'hello/images/botan.png' %}" alt="white botan">
-	  <h1 class="h4 display-md-4 text-blue-shadow">
-	    シロボタン
-	  </h1>
-	  <img src="{% static 'hello/images/botan.png' %}" alt="white botan">
-	</div>
-	<hr class="my-4">
-	<p class="lead">
-	  <span class="text-blue-shadow">シロボタン</span>は、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。
-	</p>
+	      <div class="sirobutton-logo">
+	        <img src="{% static 'hello/images/botan.png' %}" alt="white botan">
+          <h1 class="h4 display-md-4 text-blue-shadow">
+            シロボタン
+          </h1>
+          <img src="{% static 'hello/images/botan.png' %}" alt="white botan">
+        </div>
+        <hr class="my-4">
+        <p class="lead">
+          <span class="text-blue-shadow">シロボタン</span>は、電脳少女シロちゃんの声を検索して再生できるWebアプリケーションです。
+        </p>
       </div>
     </div>
     <div class="mb-5">
       <h2 id="usage" class="with-hidden-div">
-	使い方
+      	使い方
       </h2>
       <hr class="my-4">
       <p>
-	<a href="{% url 'sirobutton:home' %}">Home</a>の上部にある検索バーから、字幕を検索することができます。
+      	<a href="{% url 'sirobutton:home' %}">Home</a>の上部にある検索バーから、字幕を検索することができます。
       </p>
       <p>
-	<a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="#">
-	  字幕ボタン
-	</a>
-	を押すと、Youtubeの対応する動画の対応する時間にジャンプします。広告等が表示される場合もありますが、広告が終われば字幕の直前から再生されますので、ゆっくりお待ち下さい。
+      	<a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="#">
+      	  字幕ボタン
+      	</a>
+      	を押すと、Youtubeの対応する動画の対応する時間にジャンプします。広告等が表示される場合もありますが、広告が終われば字幕の直前から再生されますので、ゆっくりお待ち下さい。
       </p>
       <p>
-	ボタンの横の
-	<a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="#">
-	  はてなマーク→
-	</a>
-	<a class="show-detail" href="#">?</a>
-	を押すと、その字幕の詳細な情報を確認することができます。この画面では、字幕に
-	<span class="each-tag m-1">
-	  <a class="btn btn-tag btn-with-break btn-sm" role="button" href="#">タグ</a>
-	</span>
-	を付けることができます。タグは検索に使うことができるほか、<a href="{% url 'sirobutton:tags' %}">タグ一覧</a>から最近作られたタグを見ることもできます。
-	<span class="each-tag m-1">
-	  <a class="btn btn-tag btn-with-break btn-sm" role="button" href="#">タグの横にある→</a>
-	  <a class="tag-delete-button" href="#" role="button">×</a>
-	</span>
-	を押すことで、タグを削除することもできます。
+      	ボタンの横の
+        <a class="btn btn-secondary btn-mine btn-with-break btn-sm" role="button" href="#">
+          はてなマーク→
+      	</a>
+	      <a class="show-detail" href="#">?</a>
+	        を押すと、その字幕の詳細な情報を確認することができます。この画面では、字幕に
+          <span class="each-tag m-1">
+            <a class="btn btn-tag btn-with-break btn-sm" role="button" href="#">タグ</a>
+          </span>
+          を付けることができます。タグは検索に使うことができるほか、<a href="{% url 'sirobutton:tags' %}">タグ一覧</a>から最近作られたタグを見ることもできます。
+          <span class="each-tag m-1">
+            <a class="btn btn-tag btn-with-break btn-sm" role="button" href="#">タグの横にある→</a>
+            <a class="tag-delete-button" href="#" role="button">×</a>
+          </span>
+          を押すことで、タグを削除することもできます。
       </p>
       <p>
-	また、詳細画面には動画が埋め込まれており、字幕の開始時刻から終了時刻までのみを再生できます。Youtubeの仕様上、ボタンから飛んだ先では動画の再生終了時刻を指定できないのですが、埋め込み動画では指定できるので、このような仕様になっております。
+      	また、詳細画面には動画が埋め込まれており、字幕の開始時刻から終了時刻までのみを再生できます。Youtubeの仕様上、ボタンから飛んだ先では動画の再生終了時刻を指定できないのですが、埋め込み動画では指定できるので、このような仕様になっております。
       </p>
       <p>
-	字幕ボタンは、ユーザーの皆様のアクセス数が多い順に並んでおります。各字幕のアクセス数は詳細画面で見ることができます。
+      	字幕ボタンは、ユーザーの皆様のアクセス数が多い順に並んでおります。各字幕のアクセス数は詳細画面で見ることができます。
       </p>
       <p>
-	画面上部の案内バーから、各ページに飛んだりこのページをツイッターで共有したりできます。ツイッターでの共有は検索・タグ検索でもできます（検索結果の画面に新たにボタンが表示されます）ので、よろしければご活用ください。
+      	画面上部の案内バーから、各ページに飛んだりこのページをツイッターで共有したりできます。ツイッターでの共有は検索・タグ検索でもできます（検索結果の画面に新たにボタンが表示されます）ので、よろしければご活用ください。
       </p>
     </div>
     <div class="mb-5">
       <h2 id="search-detail" class="with-hidden-div">
-	検索の詳細
+      	検索の詳細
       </h2>
       <hr class="my-4">
       <p>
-	通常の字幕検索と、詳細検索の動画検索では、半角空白が任意の長さの文字列を表します。
+      	通常の字幕検索と、詳細検索の動画検索では、半角空白が任意の長さの文字列を表します。
       </p>
       <p>
-	例えば、「<b>ロ</b> <b>カ</b>」は「シ<b>ロ</b>イル<b>カ</b>」にはヒットしますが、順番が保持されるので「<b>カ</b>ル<b>ロ</b>ピノ」にはヒットしません。また、OR検索ではないので「シ<b>ロ</b>」や「イル<b>カ</b>」にもヒットしません。
+      	例えば、「<b>ロ</b> <b>カ</b>」は「シ<b>ロ</b>イル<b>カ</b>」にはヒットしますが、順番が保持されるので「<b>カ</b>ル<b>ロ</b>ピノ」にはヒットしません。また、OR検索ではないので「シ<b>ロ</b>」や「イル<b>カ</b>」にもヒットしません。
       </p>
       <p>
-	タグ検索では、半角空白がANDを表します。
+      	タグ検索では、半角空白がANDを表します。
       </p>
       <p>
-	例えば、「🐬 キュイィ」というタグ検索では、「🐬」と「キュイィ」が完全一致するタグを両方持っている字幕だけがヒットします。
+      	例えば、「🐬 キュイィ」というタグ検索では、「🐬」と「キュイィ」が完全一致するタグを両方持っている字幕だけがヒットします。
       </p>
       <p>
-	字幕検索では、ひらがなで検索すると、読みが同じ字幕も検索対象になります。
+      	字幕検索では、ひらがなで検索すると、読みが同じ字幕も検索対象になります。
       </p>
       <p>
-	例えば、「シロ組」という字幕検索では「シロぐみ」にはヒットしませんが、「しろぐみ」という検索であれば「シロ組」にも「シロぐみ」にもヒットします。
+      	例えば、「シロ組」という字幕検索では「シロぐみ」にはヒットしませんが、「しろぐみ」という検索であれば「シロ組」にも「シロぐみ」にもヒットします。
       </p>
       <p>
-	なお、読みの生成には<a href="http://taku910.github.io/mecab/">MeCab</a>を用いております。
+      	なお、読みの生成には<a href="http://taku910.github.io/mecab/">MeCab</a>を用いております。
       </p>
     </div>
     <div class="mb-5">
       <h2 id="about-links" class="with-hidden-div">
-	シロボタンの仕様について
+      	シロボタンの仕様について
       </h2>
       <hr class="my-4">
       <p>
-	シロボタンの作成においては、<a href="http://ushiumi.ichiya-boshi.net/">宇志海ボタン</a>様、<a href="http://tsukino-mito.extrem.ne.jp/">美兎ボタン</a>様、<a href="http://toukosuko.starfree.jp/">剣持ボタン</a>様を大いにリスペクトし、参考にいたしました。これらのサイトのように、シロボタンがサーバに音声データを保持せず、Youtubeへのリンクという形を取ったのにはいくつか理由があります。
+      	シロボタンの作成においては、<a href="http://ushiumi.ichiya-boshi.net/">宇志海ボタン</a>様、<a href="http://tsukino-mito.extrem.ne.jp/">美兎ボタン</a>様、<a href="http://toukosuko.starfree.jp/">剣持ボタン</a>様を大いにリスペクトし、参考にいたしました。これらのサイトのように、シロボタンがサーバに音声データを保持せず、Youtubeへのリンクという形を取ったのにはいくつか理由があります。
       </p>
       <ul>
-	<li>
-	  <p class="lead">音声データと規約</p>
-	  <p>
-	    Youtubeにアップロードされているコンテンツを、「参考目的での個人的な利用」以外の目的でダウンロードすることは、<a href="https://www.youtube.com/t/terms">Youtubeの規約</a>で禁止されています。この権利を保持しているのはYoutubeであり、投稿者・チャンネル管理者ではありません。そのため、このアプリではコンテンツのダウンロードを最小限に留めるために、音声データをダウンロードしておりません。
-	  </p>
-	</li>
-	<li>
-	  <p class="lead">シロちゃんからの変更可能性</p>
-	  <p>
-	    音声をダウンロードしてサーバに保持している場合、シロちゃん（チャンネル管理者）がある動画のある部分を削除しようとしても、サーバに保持されているデータにはアクセスすることができないため、ネット上にデータが残ってしまいます。リンクという形にすることで、シロちゃんがいつでもアクセス権をコントロールできるようになります。シロボタンが参照しているのは有志の付けた字幕データのみなので、シロちゃんの提供するコンテンツをシロちゃんのアクセス権がない場所に置くことは一切しておりません。
-	  </p>
-	</li>
-	<li>
-	  <p class="lead">再生数への貢献</p>
-	  <p>
-	    リンクという形式にすることで、ボタンを押したときにYoutubeの動画の再生回数が増えます。シロちゃんの動画の再生回数に貢献してください。よろしくお願いします。
-	  </p>
-	</li>
+        <li>
+          <p class="lead">音声データと規約</p>
+          <p>
+            Youtubeにアップロードされているコンテンツを、「参考目的での個人的な利用」以外の目的でダウンロードすることは、<a href="https://www.youtube.com/t/terms">Youtubeの規約</a>で禁止されています。この権利を保持しているのはYoutubeであり、投稿者・チャンネル管理者ではありません。そのため、このアプリではコンテンツのダウンロードを最小限に留めるために、音声データをダウンロードしておりません。
+          </p>
+        </li>
+        <li>
+          <p class="lead">シロちゃんからの変更可能性</p>
+          <p>
+            音声をダウンロードしてサーバに保持している場合、シロちゃん（チャンネル管理者）がある動画のある部分を削除しようとしても、サーバに保持されているデータにはアクセスすることができないため、ネット上にデータが残ってしまいます。リンクという形にすることで、シロちゃんがいつでもアクセス権をコントロールできるようになります。シロボタンが参照しているのは有志の付けた字幕データのみなので、シロちゃんの提供するコンテンツをシロちゃんのアクセス権がない場所に置くことは一切しておりません。
+          </p>
+        </li>
+        <li>
+          <p class="lead">再生数への貢献</p>
+          <p>
+            リンクという形式にすることで、ボタンを押したときにYoutubeの動画の再生回数が増えます。シロちゃんの動画の再生回数に貢献してください。よろしくお願いします。
+          </p>
+        </li>
       </ul>
     </div>
     <div class="mb-5">
       <h2 id="about-open-source" class="with-hidden-div">
-	アプリの公開について
+      	アプリの公開について
       </h2>
       <hr class="my-4">
       <p>
-	字幕データを取得する部分、フロント・サーバサイドも含めて、オープンソースにすることを検討しております。<b>しました。</b><a href="https://github.com/KKawamura1/sirobutton" target="_blank">SiroButton - GitHub</a>
-	<span style="text-decoration-line:line-through;">公開した場合はリンクをここに貼る予定です。</span>プログラムはシロちゃん以外のチャンネルにも使えるので、誰でも気軽に◯◯ボタンを作成することができるようになります。
+      	字幕データを取得する部分、フロント・サーバサイドも含めて、オープンソースにすることを検討しております。<b>しました。</b><a href="https://github.com/KKawamura1/sirobutton" target="_blank">SiroButton - GitHub</a>
+	      <span style="text-decoration-line:line-through;">公開した場合はリンクをここに貼る予定です。</span>プログラムはシロちゃん以外のチャンネルにも使えるので、誰でも気軽に◯◯ボタンを作成することができるようになります。
       </p>
     </div>
     <div class="mb-5">
       <h2 id="for-you-ja" class="with-hidden-div">
-	シロ組[ ˶˙ᴗ˙˶ ]のみなさんへ
+      	シロ組[ ˶˙ᴗ˙˶ ]のみなさんへ
       </h2>
       <hr class="my-4">
       <p>
-	ここまで見てくださってありがとうございます。シロ組のみなさんのツイートやコメントを見て、私と同じようにシロちゃんのことが大好きな人がこんなにいるんだなあ、といつも幸せな気持ちになっております。
+      	ここまで見てくださってありがとうございます。シロ組のみなさんのツイートやコメントを見て、私と同じようにシロちゃんのことが大好きな人がこんなにいるんだなあ、といつも幸せな気持ちになっております。
       </p>
       <p>
-	特に、いつも<a href="https://twitter.com/hashtag/siroart">#SiroArt</a>に絵を投稿してくださっている絵師の方々にはいつも感謝の気持ちでいっぱいです。あなた達のように、私もなにかシロちゃんのためにできることはないかと考え、このシロボタンの制作に至りました。本当にありがとうございます。
+      	特に、いつも<a href="https://twitter.com/hashtag/siroart">#SiroArt</a>に絵を投稿してくださっている絵師の方々にはいつも感謝の気持ちでいっぱいです。あなた達のように、私もなにかシロちゃんのためにできることはないかと考え、このシロボタンの制作に至りました。本当にありがとうございます。
       </p>
       <p>
-	また、いつも動画に字幕を付けてくれる有志のみなさん。本当にありがとうございます。あなた達がいなければこのアプリはありませんでした。いつももらってばかりで申し訳ありませんが、これからもよろしくお願いします。
+      	また、いつも動画に字幕を付けてくれる有志のみなさん。本当にありがとうございます。あなた達がいなければこのアプリはありませんでした。いつももらってばかりで申し訳ありませんが、これからもよろしくお願いします。
       </p>
     </div>
     <div class="mb-5">
       <h2 id="for-you-en" class="with-hidden-div">
-	For Foreign Fans (Sirogumi-sans)
+	      For Foreign Fans (Sirogumi-sans)
       </h2>
       <hr class="my-4">
       <p>
-	Hello bro!
+	      Hello bro!
       </p>
       <p>
-	I'm very sorry that I haven't prepared the English (or other languages) versions of this application. Currently this app (Siro Button) only supports Japanese captions, so you cannot search the captions written in other languages.
+	      I'm very sorry that I haven't prepared the English (or other languages) versions of this application. Currently this app (Siro Button) only supports Japanese captions, so you cannot search the captions written in other languages.
       </p>
       <p>
-	If you, who are deeply in love with Siro-chan, are eager to use this app in other languages, please feel free to tell me! Then I'll do my best for you. Thanks!
+	      If you, who are deeply in love with Siro-chan, are eager to use this app in other languages, please feel free to tell me! Then I'll do my best for you. Thanks!
       </p>
     </div>
     <div class="mb-5">
       <h2 id="for-you-Siro" class="with-hidden-div">
-	シロちゃん、あるいはアップランドの皆様へ
+      	シロちゃん、あるいはアップランドの皆様へ
       </h2>
       <hr class="my-4">
       <p>
-	シロちゃん、清楚の日おめでとう。チャンネル登録者数49万人おめでとう。シロちゃんのおかげで毎日が楽しくて、いつもシロちゃんから幸せをもらっています。本当にありがとう。
+      	シロちゃん、清楚の日おめでとう。チャンネル登録者数49万人おめでとう。シロちゃんのおかげで毎日が楽しくて、いつもシロちゃんから幸せをもらっています。本当にありがとう。
       </p>
       <p>
-	シロちゃんに何か恩返しがしたくて、シロちゃんのファンがもっとシロちゃんの声を聞けるようになれば、シロちゃんのことを知らない人にもっとシロちゃんのことを知る機会があればいいと思って、このアプリを作りました。もしかすると権利的・規約的に怪しい部分はあるかもしれないけど、少しだけ見逃してくれたら嬉しいです。
+      	シロちゃんに何か恩返しがしたくて、シロちゃんのファンがもっとシロちゃんの声を聞けるようになれば、シロちゃんのことを知らない人にもっとシロちゃんのことを知る機会があればいいと思って、このアプリを作りました。もしかすると権利的・規約的に怪しい部分はあるかもしれないけど、少しだけ見逃してくれたら嬉しいです。
       </p>
       <p>
-	そして、アップランドの皆様へ。電脳少女シロちゃんという存在を作ってくれて、育ててくれて本当にありがとうございます。あのとき設定上の兵器だった電脳少女シロは、いまでは立派な一人のバーチャルYouTuberとして、私たち49万人のシロ組を毎日幸せにしています。いくら感謝しても足りません。
+      	そして、アップランドの皆様へ。電脳少女シロちゃんという存在を作ってくれて、育ててくれて本当にありがとうございます。あのとき設定上の兵器だった電脳少女シロは、いまでは立派な一人のバーチャルYouTuberとして、私たち49万人のシロ組を毎日幸せにしています。いくら感謝しても足りません。
       </p>
       <p>
-	私はいま東京大学の大学院で、人工知能について研究をしています。もしシロちゃんのスリープモード（AᴜᴛᴏRᴇᴘʟʏ）を再び稼働するときや、シロちゃんのAIを作るときに、何か困ったことがあれば、是非とも私に相談してください。シロちゃんのために何かしたいと思っています。よろしくお願いします。
+      	私はいま東京大学の大学院で、人工知能について研究をしています。もしシロちゃんのスリープモード（AᴜᴛᴏRᴇᴘʟʏ）を再び稼働するときや、シロちゃんのAIを作るときに、何か困ったことがあれば、是非とも私に相談してください。シロちゃんのために何かしたいと思っています。よろしくお願いします。
       </p>
       <p>
-	追記: 手紙を書きました。もしよろしければ、読んでいただけたらすごく嬉しいです。<a href="https://kriver-1.hatenablog.com/entry/2018/06/28/161456" target="_blank">電脳世界の貴女へ - ブログ村</a>
+      	追記: 手紙を書きました。もしよろしければ、読んでいただけたらすごく嬉しいです。<a href="https://kriver-1.hatenablog.com/entry/2018/06/28/161456" target="_blank">電脳世界の貴女へ - ブログ村</a>
       </p>
     </div>
     <div class="mb-5">
       <h2 id="contacts" class="with-hidden-div">
-	ご意見・ご感想など
+        ご意見・ご感想など
       </h2>
       <hr class="my-4">
       <p>
-	気になる点がございましたら、お気軽にご連絡ください。
+        気になる点がございましたら、お気軽にご連絡ください。
       </p>
       <p>
-	<dl>
-	  <dt>Mail</dt><dd>kriver2135 [ a t ] gmail.com</dd>
-	  <dt>Twitter</dt><dd><a href="https://twitter.com/KRiver1">@KRiver1</a></dd>
-	  <dt>マシュマロ</dt><dd><a href="https://marshmallow-qa.com/kriver1">https://marshmallow-qa.com/kriver1</a></dd>
-	</dl>
+        <dl>
+          <dt>Mail</dt>
+          <dd>kriver2135 [ a t ] gmail.com</dd>
+          <dt>Twitter</dt>
+          <dd>
+            <a href="https://twitter.com/KRiver1">@KRiver1</a>
+          </dd>
+          <dt>マシュマロ</dt>
+          <dd>
+            <a href="https://marshmallow-qa.com/kriver1">https://marshmallow-qa.com/kriver1</a>
+          </dd>
+        </dl>
       </p>
     </div>
     <div class="mb-5">
-      <h2 id="last-updated-lists" class="with-hidden-div">
-	更新履歴
+      <h2 id="external-links" class="with-hidden-div">
+        外部リンク
       </h2>
       <hr class="my-4">
       <p>
-	<a href="https://github.com/KKawamura1/sirobutton/commits" rel="external" target="_blank">commits - GitHub</a>をご確認ください。
+        このサイトやシロちゃんに関するリンク集です。
+      </p>
+      <dl>
+        <dt>
+          <a href="https://www.youtube.com/channel/UCLhUvJ_wO9hOvv_yYENu4fQ" target="_blank">Siro Channel</a>
+        </dt>
+        <dd>シロちゃんのyoutube channelです。まだお済みでない方は、ぜひチャンネル登録をお願いします。</dd>
+      </dl>
+      <dl>
+        <dt>
+          <a href="https://twitter.com/SIROyoutuber" target="_blank">@SIROyoutuber</a>
+        </dt>
+        <dd>シロちゃんのTwitterアカウントです。こちらもフォローをよろしくお願いします。</dd>
+      </dl>
+      <dl>
+        <dt><a href="http://seesaawiki.jp/siroyoutuber/" target="_blank">電脳少女シロ 非公式wiki</a></dt>
+        <dd>シロちゃんについての情報が詰まっている非公式wikiです。<a href="http://seesaawiki.jp/siroyoutuber/d/%c6%f3%bc%a1%c1%cf%ba%ee%a4%bd%a4%ce%c2%be" target="_blank">こちら</a>でこのアプリを紹介していただきました。ありがとうございます。</dd>
+      </dl>
+    </div>
+    <div class="mb-5">
+      <h2 id="last-updated-lists" class="with-hidden-div">
+      	更新履歴
+      </h2>
+      <hr class="my-4">
+      <p>
+      	<a href="https://github.com/KKawamura1/sirobutton/commits" rel="external" target="_blank">commits - GitHub</a>をご確認ください。
       </p>
     </div>
   </div>
