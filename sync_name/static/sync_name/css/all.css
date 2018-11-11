@@ -1,0 +1,280 @@
+body {
+    font-family: Roboto, Arial, sans-serif, -apple-system, BlinkMacSystemFont,"Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}
+
+ul.buttons li {
+    display: inline-block;
+    margin: 3px;
+}
+
+a.show-detail, a.tag-delete-button {
+    color: #ccf;
+    text-shadow: 0 1px 0 #333;
+    font-size: small;
+}
+a.show-detail:hover, a.tag-delete-button:hover {
+    color: #99d;
+    text-shadow: 0 1px 0 #222;
+}
+
+/* responsive width embeddings */
+/* see: http://www.aiship.jp/knowhow/archives/29116 */
+div.video {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+}
+div.video iframe{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* custom bootstrap button */
+/* see: https://qiita.com/Cheekyfunkymonkey/items/09a28c947a59bb9a9026 */
+.btn-mine {
+    background: #eee;
+    color: #333;
+    background-image: linear-gradient(to bottom, #fff 0%, #ddd 100%);
+    text-shadow: 0 1px 0 #fff;
+    border-color: #ccc;
+    border-radius: .3rem;
+}
+
+.btn-mine:hover, .btn-mine:focus,
+.btn-mine:active, .btn-mine:active:focus, .btn-mine:active:hover, .btn-mine:active.focus,
+.btn-mine.active, .btn-mine.active:focus, .btn-mine.active:hover, .btn-mine.active.focus,
+.open > .dropdown-toggle.btn-mine,
+.open > .dropdown-toggle.btn-mine:hover,
+.open > .dropdown-toggle.btn-mine:focus,
+.open > .dropdown-toggle.btn-mine.focus,
+.btn-mine.disabled:hover, .btn-mine[disabled]:hover, fieldset[disabled] .btn-mine:hover,
+.btn-mine.disabled:focus, .btn-mine[disabled]:focus, fieldset[disabled] .btn-mine:focus,
+.btn-mine.disabled.focus, .btn-mine[disabled].focus, fieldset[disabled] .btn-mine.focus,
+.btn-mine:not(:disabled):not(.disabled).active, .btn-mine:not(:disabled):not(.disabled):active,
+.show > .btn-mine.dropdown-toggle {
+    background: #ddd;
+    color: #333;
+    border-color: #adadad;
+}
+
+.btn-primary.outline {
+    border: 3px solid #ccc;
+    color: #fff;
+}
+
+/* tag bottun */
+.btn-tag {
+    background: #9ce;
+    color: #333;
+    background-image: linear-gradient(to bottom, #bff 0%, #7ac 100%);
+    text-shadow: 0 1px 0 #bbb;
+    border-color: #7ab;
+    border-radius: .3rem;
+}
+
+.btn-tag:hover, .btn-tag:focus,
+.btn-tag:active, .btn-tag:active:focus, .btn-tag:active:hover, .btn-tag:active.focus,
+.btn-tag.active, .btn-tag.active:focus, .btn-tag.active:hover, .btn-tag.active.focus,
+.open > .dropdown-toggle.btn-tag,
+.open > .dropdown-toggle.btn-tag:hover,
+.open > .dropdown-toggle.btn-tag:focus,
+.open > .dropdown-toggle.btn-tag.focus,
+.btn-tag.disabled:hover, .btn-tag[disabled]:hover, fieldset[disabled] .btn-tag:hover,
+.btn-tag.disabled:focus, .btn-tag[disabled]:focus, fieldset[disabled] .btn-tag:focus,
+.btn-tag.disabled.focus, .btn-tag[disabled].focus, fieldset[disabled] .btn-tag.focus,
+.btn-tag:not(:disabled):not(.disabled).active, .btn-tag:not(:disabled):not(.disabled):active,
+.show > .btn-tag.dropdown-toggle {
+    background: #8bd;
+    color: #333;
+    border-color: #69a;
+}
+
+.btn-primary.outline {
+    border: 3px solid #ccc;
+    color: #fff;
+}
+
+/* custom background colors */
+.bg-top-nav {
+    background-image: linear-gradient(to bottom, rgba(96, 220, 255, 0.8) 0%, rgba(50, 160, 200, 0.8) 100%);
+}
+
+.bg-blue-with-transparent {
+    background-color: rgba(90, 200, 250, 0.7);
+    border-color: #69c;
+    border-style: solid;
+    border-radius: 0.5em;
+    border-width: 1px;
+}
+
+/* text shadow */
+.text-shadow-dark {
+    text-shadow: 0 0.03em 0 #333;
+}
+
+/* overflow for nav-scroll */
+.navbar .navbar-nav-scroll {
+    max-width: 100%;
+    height: 2.5rem;
+    margin-top: .25rem;
+    overflow: hidden;
+    font-size: .875rem;
+}
+.navbar .navbar-nav-scroll .navbar-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: solid 1px #6ef;
+}
+
+/* button break-line */
+.btn-with-break {
+    white-space: normal;
+}
+
+/* dont break line */
+.text-no-wrap {
+    white-space: nowrap;
+}
+
+/* semi-transparent bg */
+.bg-white-transparent {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0.3em;
+}
+.bg-white-little-transparent {
+    background-color: rgba(245, 250, 255, 0.90);
+    border-radius: 0.3em;
+}
+
+/* hidden element */
+.hidden {
+    display: none;
+}
+
+/* inline form */
+form.inline-form {
+    display: inline-block;
+}
+form.inline-form .form-control {
+    display: inline-block;
+    width: auto;
+}
+
+/* tag buttons */
+span.each-tag {
+    display: inline-block;
+}
+
+/* form label */
+.form-group label.col-form-label {
+    white-space: nowrap;
+}
+
+/* brand text */
+.navbar-brand-text {
+    text-shadow: 0px 0.5px 2px #cff;
+}
+.text-blue-shadow {
+    text-shadow: 0px 0.5px 2px #cff;
+}
+.text-small-blue-shadow {
+    text-shadow: 0px 0.5px 1px #add;
+}
+
+/* circle-form image */
+img.circle-img {
+    border-radius: 50%;
+}
+
+/* card with row-direction */
+.row-card {
+    flex-direction: row;
+    align-items: center;
+}
+.row-card .card-body .card-title {
+    margin-bottom: 0px;
+}
+
+/* link with card */
+.btn-card {
+    text-align: initial;
+    white-space: normal;
+    display: block;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.8em;
+}
+.btn-card .card {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+.btn-card:hover {
+    background-color: rgba(245, 252, 255, 0.85);
+}
+
+/* sirobutton logo */
+.sirobutton-logo {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+.sirobutton-logo * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.sirobutton-logo img {
+    max-width: 48px;
+    height: auto;
+}
+
+/* jumbotron color */
+.my-jumbotron {
+    background-image: linear-gradient(to bottom, #dafaff 0%, #caeafa 100%);
+}
+
+/* font size with responsive */
+@media (min-width: 400px) {
+  .h3-xs {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 576px) {
+  .h2-sm {
+    font-size: 2.0rem;
+  }
+}
+@media (min-width: 576px) {
+    .display-md-4 {
+	font-size: 3.6em;
+    }
+}
+
+/*
+  hidden div for non-overlap link with a sticky bar
+  See the bootstrap documentation page for more details.
+*/
+.with-hidden-div[id]::before {
+    display: block;
+    height: 6rem;
+    margin-top: -6rem;
+    visibility: hidden;
+    content: "";
+}
+
+/* other classes */
+.text-black {
+    color: #111;
+}
+
+@media (min-width: 576px) {
+    .fix-width-sm {
+	width: 400px;
+	margin: auto;
+    }
+}
