@@ -28,6 +28,7 @@ sitemaps = {
 urlpatterns = [
     path('', index),
     path('sirobutton/', include('hello.urls')),
+    path('sync_name/', include('sync_name.urls')),
     path('admin/', admin.site.urls),
     path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps},

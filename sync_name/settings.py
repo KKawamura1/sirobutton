@@ -1,3 +1,6 @@
+import os
+
+
 # Twitter Keys
 try:
     key = os.environ['TWITTER_API_KEY'].strip()

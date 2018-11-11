@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'hitcount',
     'pure_pagination',
     'hello',
+    'sync_name',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,6 @@ PAGINATION_SETTINGS = {
 # See: https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
 
 SITE_ID = 1
+
+# Set others
+import sync_name.settings

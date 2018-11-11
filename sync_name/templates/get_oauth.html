@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}同期するやつ{% endblock %}
-{% block description %}ツイッターの名前を同期するやつです。{% endblock %}
+{% block description %}ツイッターの名前をシロちゃん(@SIROyoutuber)と同期するやつです。{% endblock %}
 
 {% block content %}
 
@@ -11,12 +11,19 @@
         <!-- main contents -->
         <div class="mb-5">
             <h2 id="hello" class="with-hidden-div">
-                こんにちは
+                同期するやつ
             </h2>
             <hr class="my-4">
             <p>
-                これはテストです。
+                ツイッターの名前をシロちゃん(@SIROyoutuber)と同期するやつです。
             </p>
+            <form class="form-group" method="get" action="{% url 'sync_name:api_get_oauth' %}" enctype="application/x-www-form-urlencoded">
+                <div class="form-group row justify-content-center">
+                    <button class="btn btn-secondary btn-mine" type="submit">
+                        Twitterで認証する
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
